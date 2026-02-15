@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { MedicineData } from "./../types/medicine.type";
+import { Button } from "./ui/button";
 
 const MedicineCard = ({ medicine }: { medicine: MedicineData }) => {
   return (
@@ -13,6 +15,9 @@ const MedicineCard = ({ medicine }: { medicine: MedicineData }) => {
           </span>
           <span className="text-gray-500 text-sm">Stock: {medicine.stock}</span>
         </div>
+        <Button>
+          <Link href={`/medicine/${medicine.id}`}>See Details</Link>
+        </Button>
       </div>
     </div>
   );
