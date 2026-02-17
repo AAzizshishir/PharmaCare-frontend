@@ -20,7 +20,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Link from "next/link";
-import Image from "next/image";
+import { signOut, useSession } from "@/lib/auth-client";
 
 interface MenuItem {
   title: string;
@@ -34,7 +34,6 @@ interface Navbar1Props {
   className?: string;
   logo?: {
     url: string;
-    src: string;
     alt: string;
     title: string;
     className?: string;
@@ -54,10 +53,9 @@ interface Navbar1Props {
 
 const Navbar = ({
   logo = {
-    url: "https://www.shadcnblocks.com",
-    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg",
+    url: "/",
     alt: "logo",
-    title: "Shadcnblocks.com",
+    title: "PharmaCare",
   },
   menu = [
     { title: "Home", url: "/" },
@@ -77,6 +75,7 @@ const Navbar = ({
   },
   className,
 }: Navbar1Props) => {
+  const { data: session } = useSession();
   return (
     <section className={cn("py-4", className)}>
       <div className="container mx-auto">
@@ -85,13 +84,6 @@ const Navbar = ({
           <div className="flex items-center gap-6">
             {/* Logo */}
             <Link href={logo.url} className="flex items-center gap-2">
-              <Image
-                src={logo.src}
-                className="max-h-8 dark:invert"
-                alt={logo.alt}
-                width={150}
-                height={150}
-              />
               <span className="text-lg font-semibold tracking-tighter">
                 {logo.title}
               </span>
@@ -105,12 +97,21 @@ const Navbar = ({
             </div>
           </div>
           <div className="flex gap-2">
-            <Button asChild variant="outline" size="sm">
-              <Link href={auth.login.url}>{auth.login.title}</Link>
-            </Button>
-            <Button asChild size="sm">
-              <Link href={auth.signup.url}>{auth.signup.title}</Link>
-            </Button>
+            {session ? (
+              <Button onClick={() => signOut()} className="cursor-pointer">
+                Logout
+              </Button>
+            ) : (
+              <>
+                {" "}
+                <Button asChild variant="outline" size="sm">
+                  <Link href={auth.login.url}>{auth.login.title}</Link>
+                </Button>
+                <Button asChild size="sm">
+                  <Link href={auth.signup.url}>{auth.signup.title}</Link>
+                </Button>
+              </>
+            )}
           </div>
         </nav>
 
@@ -118,15 +119,7 @@ const Navbar = ({
         <div className="block lg:hidden">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link href={logo.url} className="flex items-center gap-2">
-              <Image
-                src={logo.src}
-                className="max-h-8 dark:invert"
-                alt={logo.alt}
-                width={150}
-                height={150}
-              />
-            </Link>
+            <Link href={logo.url} className="flex items-center gap-2"></Link>
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="outline" size="icon">
@@ -136,15 +129,10 @@ const Navbar = ({
               <SheetContent className="overflow-y-auto">
                 <SheetHeader>
                   <SheetTitle>
-                    <Link href={logo.url} className="flex items-center gap-2">
-                      <Image
-                        src={logo.src}
-                        className="max-h-8 dark:invert"
-                        alt={logo.alt}
-                        width={150}
-                        height={150}
-                      />
-                    </Link>
+                    <Link
+                      href={logo.url}
+                      className="flex items-center gap-2"
+                    ></Link>
                   </SheetTitle>
                 </SheetHeader>
                 <div className="flex flex-col gap-6 p-4">
@@ -157,12 +145,25 @@ const Navbar = ({
                   </Accordion>
 
                   <div className="flex flex-col gap-3">
-                    <Button asChild variant="outline">
-                      <Link href={auth.login.url}>{auth.login.title}</Link>
-                    </Button>
-                    <Button asChild>
-                      <Link href={auth.signup.url}>{auth.signup.title}</Link>
-                    </Button>
+                    {session ? (
+                      <Button
+                        onClick={() => signOut()}
+                        className="cursor-pointer"
+                      >
+                        Logout
+                      </Button>
+                    ) : (
+                      <>
+                        <Button asChild variant="outline">
+                          <Link href={auth.login.url}>{auth.login.title}</Link>
+                        </Button>
+                        <Button asChild>
+                          <Link href={auth.signup.url}>
+                            {auth.signup.title}
+                          </Link>
+                        </Button>
+                      </>
+                    )}
                   </div>
                 </div>
               </SheetContent>

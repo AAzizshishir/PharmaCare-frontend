@@ -9,11 +9,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Field, FieldError, FieldGroup } from "@/components/ui/field";
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+} from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import { useForm } from "@tanstack/react-form";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import * as z from "zod";
 
@@ -25,6 +31,7 @@ const formSchema = z.object({
 });
 
 export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
+  const router = useRouter();
   const form = useForm({
     defaultValues: {
       name: "",
@@ -43,6 +50,8 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
         if (error) {
           toast.error(error.message, { id: toastId });
           return;
+        } else {
+          router.push("/");
         }
 
         toast.success("User Created Successfully", { id: toastId });
@@ -177,6 +186,12 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
           Register
         </Button>
       </CardFooter>
+      <FieldDescription className="flex items-center justify-center gap-2">
+        Already have an account?
+        <Link href={"/login"} className="hover:underline">
+          Login
+        </Link>
+      </FieldDescription>
     </Card>
   );
 }
