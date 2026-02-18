@@ -77,14 +77,14 @@ const Navbar = ({
 }: Navbar1Props) => {
   const { data: session } = useSession();
   return (
-    <section className={cn("py-4", className)}>
+    <section className={`${cn("py-4", className)}`}>
       <div className="container mx-auto">
         {/* Desktop Menu */}
         <nav className="hidden items-center justify-between lg:flex">
           <div className="flex items-center gap-6">
             {/* Logo */}
             <Link href={logo.url} className="flex items-center gap-2">
-              <span className="text-lg font-semibold tracking-tighter">
+              <span className="text-xl font-semibold tracking-tighter text-blue-500">
                 {logo.title}
               </span>
             </Link>
@@ -98,7 +98,10 @@ const Navbar = ({
           </div>
           <div className="flex gap-2">
             {session ? (
-              <Button onClick={() => signOut()} className="cursor-pointer">
+              <Button
+                onClick={() => signOut()}
+                className="cursor-pointer bg-blue-400 text-white"
+              >
                 Logout
               </Button>
             ) : (
@@ -148,7 +151,7 @@ const Navbar = ({
                     {session ? (
                       <Button
                         onClick={() => signOut()}
-                        className="cursor-pointer"
+                        className="cursor-pointer bg-white text-black"
                       >
                         Logout
                       </Button>
@@ -190,9 +193,13 @@ const renderMenuItem = (item: MenuItem) => {
 
 const renderMobileMenuItem = (item: MenuItem) => {
   return (
-    <a key={item.title} href={item.url} className="text-md font-semibold">
+    <Link
+      key={item.title}
+      href={item.url}
+      className="text-md font-semibold text-white"
+    >
       {item.title}
-    </a>
+    </Link>
   );
 };
 

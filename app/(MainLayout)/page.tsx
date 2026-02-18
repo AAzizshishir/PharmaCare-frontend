@@ -1,3 +1,9 @@
+import Banner from "@/components/Banner";
+
 export default function Home() {
-  return <div>Hello pharma care</div>;
+  return (
+    <div>
+      <Banner />
+    </div>
+  );
 }
