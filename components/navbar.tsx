@@ -21,6 +21,9 @@ import {
 } from "@/components/ui/sheet";
 import Link from "next/link";
 import { signOut, useSession } from "@/lib/auth-client";
+import { adminNavRoutes } from "@/routes/admin-routes";
+import { sellerNavRoutes } from "@/routes/seller-routes";
+import { AppSession, NavRoute } from "@/types";
 
 interface MenuItem {
   title: string;
@@ -75,7 +78,27 @@ const Navbar = ({
   },
   className,
 }: Navbar1Props) => {
-  const { data: session } = useSession();
+  const { data } = useSession();
+  const session = data as AppSession | null;
+  const role = session?.user.role?.toLowerCase();
+
+  let routes: NavRoute[] = [];
+  console.log("from navbar", role);
+  console.log(role);
+  switch (role) {
+    case "admin":
+      routes = adminNavRoutes;
+      break;
+
+    case "seller":
+      routes = sellerNavRoutes;
+      break;
+
+    default:
+      routes = [];
+      break;
+  }
+
   return (
     <section className={`${cn("py-4", className)}`}>
       <div className="container mx-auto">
@@ -91,26 +114,33 @@ const Navbar = ({
             <div className="flex items-center">
               <NavigationMenu>
                 <NavigationMenuList>
-                  {menu.map((item) => renderMenuItem(item))}
+                  {routes.map((item) => renderMenuItem(item))}
                 </NavigationMenuList>
               </NavigationMenu>
             </div>
           </div>
           <div className="flex gap-2">
             {session ? (
-              <Button
-                onClick={() => signOut()}
-                className="cursor-pointer bg-blue-400 text-white"
-              >
-                Logout
-              </Button>
+              <>
+                <h2 className="mt-2 mr-2 text-sm font-semibold">{role}</h2>
+                <Button
+                  onClick={() => signOut()}
+                  className="cursor-pointer bg-blue-400 text-white"
+                >
+                  Logout
+                </Button>
+              </>
             ) : (
               <>
                 {" "}
                 <Button asChild variant="outline" size="sm">
                   <Link href={auth.login.url}>{auth.login.title}</Link>
                 </Button>
-                <Button asChild size="sm">
+                <Button
+                  asChild
+                  size="sm"
+                  className="cursor-pointer bg-blue-400 text-white"
+                >
                   <Link href={auth.signup.url}>{auth.signup.title}</Link>
                 </Button>
               </>
@@ -144,23 +174,31 @@ const Navbar = ({
                     collapsible
                     className="flex w-full flex-col gap-4"
                   >
-                    {menu.map((item) => renderMobileMenuItem(item))}
+                    {routes.map((item) => renderMobileMenuItem(item))}
                   </Accordion>
 
                   <div className="flex flex-col gap-3">
                     {session ? (
-                      <Button
-                        onClick={() => signOut()}
-                        className="cursor-pointer bg-white text-black"
-                      >
-                        Logout
-                      </Button>
+                      <>
+                        <h2 className="mt-2 mr-2 text-sm font-semibold">
+                          {role}
+                        </h2>
+                        <Button
+                          onClick={() => signOut()}
+                          className="cursor-pointer bg-white text-black"
+                        >
+                          Logout
+                        </Button>
+                      </>
                     ) : (
                       <>
                         <Button asChild variant="outline">
                           <Link href={auth.login.url}>{auth.login.title}</Link>
                         </Button>
-                        <Button asChild>
+                        <Button
+                          asChild
+                          className="cursor-pointer bg-blue-400 text-white"
+                        >
                           <Link href={auth.signup.url}>
                             {auth.signup.title}
                           </Link>
