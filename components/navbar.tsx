@@ -20,10 +20,11 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Link from "next/link";
-import { signOut, useSession } from "@/lib/auth-client";
+import { authClient, signOut, useSession } from "@/lib/auth-client";
 import { adminNavRoutes } from "@/routes/admin-routes";
 import { sellerNavRoutes } from "@/routes/seller-routes";
 import { AppSession, NavRoute } from "@/types";
+import { publicNavRoutes } from "@/routes/public-routes";
 
 interface MenuItem {
   title: string;
@@ -60,18 +61,6 @@ const Navbar = ({
     alt: "logo",
     title: "PharmaCare",
   },
-  menu = [
-    { title: "Home", url: "/" },
-
-    {
-      title: "Medicine",
-      url: "/medicine",
-    },
-    {
-      title: "About",
-      url: "/about",
-    },
-  ],
   auth = {
     login: { title: "Login", url: "/login" },
     signup: { title: "Sign up", url: "/register" },
@@ -83,9 +72,11 @@ const Navbar = ({
   const role = session?.user.role;
   const email = session?.user.email;
 
+  const sessionData = authClient.useSession();
+  console.log(sessionData);
+
   let routes: NavRoute[] = [];
-  console.log("from navbar", role);
-  console.log(role);
+
   switch (role) {
     case "ADMIN":
       routes = adminNavRoutes;
@@ -96,7 +87,7 @@ const Navbar = ({
       break;
 
     default:
-      routes = [];
+      routes = publicNavRoutes;
       break;
   }
 

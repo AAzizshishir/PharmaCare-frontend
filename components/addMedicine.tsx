@@ -41,7 +41,7 @@ const AddMedicine = ({
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
-      const toastId = toast.loading("Creating Data");
+      const toastId = toast.loading("Adding Medicine");
 
       console.log(value);
       try {
@@ -52,7 +52,7 @@ const AddMedicine = ({
           return;
         }
 
-        toast.success("Medicine Created Successfully", { id: toastId });
+        toast.success("Medicine Added Successfully", { id: toastId });
       } catch (error) {
         toast.error("Something went wrong, please try again.", { id: toastId });
       }

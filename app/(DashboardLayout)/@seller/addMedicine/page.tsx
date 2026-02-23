@@ -4,7 +4,6 @@ import { CategoryTypes } from "@/types";
 
 const AddMedicinePage = async () => {
   const categories = await categoryService.getCategories();
-  console.log(categories.data);
   return (
     <div>
       <AddMedicine categories={categories} />

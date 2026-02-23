@@ -23,8 +23,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const session = data as AppSession | null;
   const role = session?.user.role?.toLowerCase();
   let routes: Route[] = [];
-  console.log("from app sidebar", role);
-  console.log(routes);
+
   switch (role) {
     case "admin":
       routes = adminRoutes;

@@ -1,3 +1,5 @@
+// import { cookies } from "next/headers";
+
 const API_URL = process.env.API_URL;
 const PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -53,9 +55,32 @@ export const medicineService = {
       const data = await res.json();
       if (data.success) {
         return data;
+      } else {
+        return { error: { message: data.message || "Failed" } };
       }
     } catch (error) {
       return { data: null, error: { message: "Something Went Wrong" } };
     }
   },
+
+  // getMedicineBySeller: async function () {
+  //   try {
+  //     // const cookieStore = await cookies()
+  //     const res = await fetch(`${API_URL}/api/seller/medicines`, {
+  //       next: { revalidate: 60 },
+  //       // headers: {
+  //       //   cookie: cookieStore.toString()
+  //       // }
+  //     });
+  //     const data = await res.json();
+
+  //     if (data.success) {
+  //       return data;
+  //     } else {
+  //       return { data: null, error: { message: data.message || "Failed" } };
+  //     }
+  //   } catch (error) {
+  //     return { data: null, error: { message: "Something Went Wrong" } };
+  //   }
+  // },
 };
