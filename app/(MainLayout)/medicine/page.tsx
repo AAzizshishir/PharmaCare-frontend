@@ -4,7 +4,7 @@ import { MedicineData } from "@/types";
 
 const MedicinePage = async () => {
   const medicines = await medicineService.getMedicine();
-  console.log(medicines);
+
   return (
     <div className="grid grid-cols-3 gap-4 container mx-auto">
       {medicines.data.map((data: MedicineData) => (

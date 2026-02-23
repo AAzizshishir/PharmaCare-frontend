@@ -27,7 +27,7 @@ const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
   password: z.string().min(8, "Minimum length is 8"),
   email: z.email(),
-  role: z.string(),
+  role: z.string().transform((value) => value.toUpperCase()),
 });
 
 export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
@@ -164,8 +164,8 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
                       <option value="" disabled>
                         Select Role
                       </option>
-                      <option value="seller">Seller</option>
-                      <option value="customer">Customer</option>
+                      <option value="SELLER">SELLER</option>
+                      <option value="CUSTOMER">CUSTOMER</option>
                     </select>
                     {isInvalid && (
                       <FieldError errors={field.state.meta.errors} />

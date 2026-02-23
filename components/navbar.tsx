@@ -80,17 +80,18 @@ const Navbar = ({
 }: Navbar1Props) => {
   const { data } = useSession();
   const session = data as AppSession | null;
-  const role = session?.user.role?.toLowerCase();
+  const role = session?.user.role;
+  const email = session?.user.email;
 
   let routes: NavRoute[] = [];
   console.log("from navbar", role);
   console.log(role);
   switch (role) {
-    case "admin":
+    case "ADMIN":
       routes = adminNavRoutes;
       break;
 
-    case "seller":
+    case "SELLER":
       routes = sellerNavRoutes;
       break;
 
@@ -122,7 +123,10 @@ const Navbar = ({
           <div className="flex gap-2">
             {session ? (
               <>
-                <h2 className="mt-2 mr-2 text-sm font-semibold">{role}</h2>
+                <div>
+                  <h2 className="mt-2 mr-2 text-sm font-semibold">{role}</h2>
+                  <p>{email}</p>
+                </div>
                 <Button
                   onClick={() => signOut()}
                   className="cursor-pointer bg-blue-400 text-white"
@@ -180,9 +184,13 @@ const Navbar = ({
                   <div className="flex flex-col gap-3">
                     {session ? (
                       <>
-                        <h2 className="mt-2 mr-2 text-sm font-semibold">
-                          {role}
-                        </h2>
+                        <div>
+                          <h2 className="mt-2 mr-2 text-sm font-semibold">
+                            {role}
+                          </h2>
+                          <p>{session?.user.email}</p>
+                        </div>
+
                         <Button
                           onClick={() => signOut()}
                           className="cursor-pointer bg-white text-black"
