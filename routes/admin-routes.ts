@@ -9,11 +9,19 @@ export const adminRoutes: Route[] = [
         url: "/",
       },
       {
-        title: "users",
+        title: "Medicines",
+        url: "/medicines",
+      },
+      {
+        title: "Categories",
+        url: "/categories",
+      },
+      {
+        title: "Users",
         url: "/users",
       },
       {
-        title: "orders",
+        title: "Orders",
         url: "/orders",
       },
     ],
