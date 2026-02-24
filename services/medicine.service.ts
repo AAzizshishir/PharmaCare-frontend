@@ -63,6 +63,34 @@ export const medicineService = {
     }
   },
 
+  // only edit by seller
+  editMedicine: async function ({
+    id,
+    value,
+  }: {
+    id: string;
+    value: MedicineDataType;
+  }) {
+    try {
+      const res = await fetch(`${PUBLIC_API_URL}/api/seller/medicine/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(value),
+        credentials: "include",
+      });
+      const data = await res.json();
+      if (data.success) {
+        return data;
+      } else {
+        return { error: { message: data.message || "Failed" } };
+      }
+    } catch (error) {
+      return { data: null, error: { message: "Something Went Wrong" } };
+    }
+  },
+
   // getMedicineBySeller: async function () {
   //   try {
   //     // const cookieStore = await cookies()

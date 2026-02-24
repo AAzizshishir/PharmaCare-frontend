@@ -15,9 +15,14 @@ const MedicineCard = ({ medicine }: { medicine: MedicineData }) => {
           </span>
           <span className="text-gray-500 text-sm">Stock: {medicine.stock}</span>
         </div>
-        <Button>
-          <Link href={`/medicine/${medicine.id}`}>See Details</Link>
-        </Button>
+        <div className="flex justify-between">
+          <Button className="bg-blue-400 hover:bg-blue-600 cursor-pointer">
+            <Link href={`/medicine/${medicine.id}`}>See Details</Link>
+          </Button>
+          <Button className="bg-blue-400 hover:bg-blue-600 cursor-pointer">
+            <Link href={`/edit-medicine/${medicine.id}`}>Edit</Link>
+          </Button>
+        </div>
       </div>
     </div>
   );

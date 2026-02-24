@@ -9,12 +9,13 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Field, FieldError, FieldGroup } from "./ui/field";
-import { useForm } from "@tanstack/react-form";
-import { toast } from "sonner";
 import { Input } from "./ui/input";
+import { toast } from "sonner";
+import { useForm } from "@tanstack/react-form";
 import { Button } from "./ui/button";
-import { CategoryTypes } from "./../types/category.type";
-import { medicineService } from "@/services/medicine.service";
+import { MedicineDataType, medicineService } from "@/services/medicine.service";
+import { CategoryTypes } from "@/types";
+import { Label } from "./ui/label";
 
 const formSchema = z.object({
   name: z.string(),
@@ -24,11 +25,16 @@ const formSchema = z.object({
   categoryId: z.string(),
 });
 
-const AddMedicine = ({
+const EditMedicineCard = ({
+  id,
   categories,
+  medicine,
 }: {
+  id: string;
   categories: { data: CategoryTypes[] };
+  medicine: { data: MedicineDataType };
 }) => {
+  console.log(medicine?.data.name);
   const form = useForm({
     defaultValues: {
       name: "",
@@ -41,27 +47,31 @@ const AddMedicine = ({
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
-      const toastId = toast.loading("Adding Medicine");
+      const toastId = toast.loading("Editing Medicine");
 
       console.log(value);
       try {
-        const { data, error } = await medicineService.postMedicine({ value });
+        const { data, error } = await medicineService.editMedicine({
+          id,
+          value,
+        });
         console.log(data);
         if (error) {
           toast.error(error.message, { id: toastId });
           return;
         }
 
-        toast.success("Medicine Added Successfully", { id: toastId });
+        toast.success("Medicine Edited Successfully", { id: toastId });
       } catch (error) {
         toast.error("Something went wrong, please try again.", { id: toastId });
       }
     },
   });
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Add Medicine</CardTitle>
+        <CardTitle>Edit Medicine</CardTitle>
       </CardHeader>
       <CardContent>
         <form
@@ -80,12 +90,12 @@ const AddMedicine = ({
                   field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field>
+                    <Label>Medicine Name</Label>
                     <Input
                       type="text"
                       id={field.name}
                       name={field.name}
-                      value={field.state.value}
-                      placeholder="Enter Medicine Name"
+                      value={medicine?.data.name}
                       onChange={(e) => field.handleChange(e.target.value)}
                     />
                     {isInvalid && (
@@ -103,11 +113,12 @@ const AddMedicine = ({
                   field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field>
+                    <Label>Medicine Description</Label>
                     <Input
                       type="text"
                       id={field.name}
                       name={field.name}
-                      value={field.state.value}
+                      defaultValue={medicine.data.description}
                       placeholder="Enter Description"
                       onChange={(e) => field.handleChange(e.target.value)}
                     />
@@ -126,11 +137,12 @@ const AddMedicine = ({
                   field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field>
+                    <Label>Medicine Price</Label>
                     <Input
                       type="number"
                       id={field.name}
                       name={field.name}
-                      value={field.state.value}
+                      defaultValue={medicine.data.price}
                       placeholder="Enter Price"
                       onChange={(e) =>
                         field.handleChange(Number(e.target.value))
@@ -151,11 +163,12 @@ const AddMedicine = ({
                   field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field>
+                    <Label>Medicine Stock</Label>
                     <Input
                       type="number"
                       id={field.name}
                       name={field.name}
-                      value={field.state.value}
+                      defaultValue={medicine.data.stock}
                       placeholder="Enter Stock"
                       onChange={(e) =>
                         field.handleChange(Number(e.target.value))
@@ -176,6 +189,7 @@ const AddMedicine = ({
                   field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field>
+                    <Label>Medicine Category</Label>
                     <select
                       id={field.name}
                       name={field.name}
@@ -186,7 +200,7 @@ const AddMedicine = ({
                       <option value="" disabled>
                         Select Category
                       </option>
-                      {categories.data.map((category: CategoryTypes) => (
+                      {categories?.data.map((category: CategoryTypes) => (
                         <option key={category.id} value={category.id}>
                           {category.name}
                         </option>
@@ -208,11 +222,11 @@ const AddMedicine = ({
           type="submit"
           className="w-full cursor-pointer bg-blue-400"
         >
-          Add Medicine
+          Edit Medicine
         </Button>
       </CardFooter>
     </Card>
   );
 };
 
-export default AddMedicine;
+export default EditMedicineCard;
