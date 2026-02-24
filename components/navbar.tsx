@@ -25,6 +25,7 @@ import { adminNavRoutes } from "@/routes/admin-routes";
 import { sellerNavRoutes } from "@/routes/seller-routes";
 import { AppSession, NavRoute } from "@/types";
 import { publicNavRoutes } from "@/routes/public-routes";
+import { customerNavRoutes } from "@/routes/customer-routes";
 
 interface MenuItem {
   title: string;
@@ -72,9 +73,6 @@ const Navbar = ({
   const role = session?.user.role;
   const email = session?.user.email;
 
-  const sessionData = authClient.useSession();
-  console.log(sessionData);
-
   let routes: NavRoute[] = [];
 
   switch (role) {
@@ -84,6 +82,10 @@ const Navbar = ({
 
     case "SELLER":
       routes = sellerNavRoutes;
+      break;
+
+    case "CUSTOMER":
+      routes = customerNavRoutes;
       break;
 
     default:
