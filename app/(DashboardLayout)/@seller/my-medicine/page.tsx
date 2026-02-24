@@ -1,5 +1,5 @@
-import MedicineCard from "@/components/medicineCard";
 // import { medicineService } from "@/services/medicine.service";
+import SellerMedicineCard from "@/components/seller-medicine-card";
 import { MedicineData } from "@/types";
 import { cookies } from "next/headers";
 const PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -15,11 +15,10 @@ const MyMedicines = async () => {
     },
   });
   const data = await medicines.json();
-
   return (
     <div className="grid grid-cols-3 gap-4 container mx-auto">
       {data.data.map((data: MedicineData) => (
-        <MedicineCard key={data.id} medicine={data} />
+        <SellerMedicineCard key={data.id} medicine={data} />
       ))}
     </div>
   );

@@ -91,6 +91,30 @@ export const medicineService = {
     }
   },
 
+  deleteMedicine: async function (id: string) {
+    try {
+      const res = await fetch(`${PUBLIC_API_URL}/api/seller/medicine/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        return data;
+      } else {
+        return {
+          error: { message: data.message || "Failed to delete medicine" },
+        };
+      }
+    } catch (error) {
+      return { data: null, error: { message: "Something Went Wrong" } };
+    }
+  },
+
   // getMedicineBySeller: async function () {
   //   try {
   //     // const cookieStore = await cookies()
