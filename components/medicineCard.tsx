@@ -15,7 +15,10 @@ const MedicineCard = ({ medicine }: { medicine: MedicineData }) => {
           </span>
           <span className="text-gray-500 text-sm">Stock: {medicine.stock}</span>
         </div>
-        <Button className="bg-blue-400 hover:bg-blue-600 cursor-pointer w-full">
+        <Button
+          className="bg-blue-400 hover:bg-blue-600 cursor-pointer w-full"
+          asChild
+        >
           <Link href={`/medicine/${medicine.id}`}>See Details</Link>
         </Button>
       </div>

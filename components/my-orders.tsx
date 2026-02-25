@@ -26,10 +26,10 @@ const MyOrdersCard = ({ orderItem }: { orderItem: OrderCardProps }) => {
     orderItems,
   } = orderItem;
 
-  const handleUpdateStatus = async (id: string, status: string) => {
+  const cancellOrder = async (id: string, status: string) => {
     const toastId = toast.loading("Cancelling Order");
     try {
-      const res = await orderService.updateOrderStatus(id, status);
+      const res = await orderService.cancellOrder(id, status);
       console.log(res);
       if (res.error) {
         toast.error(res.error.message, { id: toastId });
@@ -89,7 +89,7 @@ const MyOrdersCard = ({ orderItem }: { orderItem: OrderCardProps }) => {
           <Button
             variant="destructive"
             className="cursor-pointer"
-            onClick={() => handleUpdateStatus(id, "CANCELLED")}
+            onClick={() => cancellOrder(id, "CANCELLED")}
           >
             Cancel Order
           </Button>
