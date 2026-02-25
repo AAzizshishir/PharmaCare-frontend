@@ -1,7 +1,5 @@
 "use client";
 
-import { OrderCardProps } from "@/types";
-import { Button } from "./ui/button";
 import {
   Table,
   TableBody,
@@ -10,24 +8,27 @@ import {
   TableHeader,
   TableRow,
 } from "./ui/table";
+import { Button } from "./ui/button";
+import { SellerOrderTypes } from "@/types";
 import { toast } from "sonner";
 import { orderService } from "@/services/order.service";
 import { useRouter } from "next/navigation";
 
-const MyOrdersCard = ({ orderItem }: { orderItem: OrderCardProps }) => {
+const SellerOrderCard = ({ orderItem }: { orderItem: SellerOrderTypes }) => {
   const router = useRouter();
   const {
     id,
+    orderItems,
+    customer,
+    createdAt,
     shippingAddress,
     paymentMethod,
     status,
     totalAmount,
-    createdAt,
-    orderItems,
   } = orderItem;
 
   const handleUpdateStatus = async (id: string, status: string) => {
-    const toastId = toast.loading("Cancelling Order");
+    const toastId = toast.loading("Updating status");
     try {
       const res = await orderService.updateOrderStatus(id, status);
       console.log(res);
@@ -35,18 +36,20 @@ const MyOrdersCard = ({ orderItem }: { orderItem: OrderCardProps }) => {
         toast.error(res.error.message, { id: toastId });
         return;
       }
-      toast.success("Order Cancelled Successfully", { id: toastId });
+      toast.success("Status Update Successfully", { id: toastId });
       router.refresh();
     } catch (error) {
       toast.error("Something went wrong, please try again.", { id: toastId });
     }
   };
+
   return (
     <div className="border rounded-md shadow-md p-4">
       <h2 className="font-semibold mb-2">Order #{id}</h2>
       <p className="text-sm text-gray-500 mb-4">
         Placed on {new Date(createdAt).toLocaleString()}
       </p>
+
       <Table>
         <TableHeader>
           <TableRow>
@@ -61,7 +64,7 @@ const MyOrdersCard = ({ orderItem }: { orderItem: OrderCardProps }) => {
             <TableRow key={item.id}>
               <TableCell>{item.medicines.name}</TableCell>
               <TableCell>{item.quantity}</TableCell>
-              <TableCell>{item.priceAtPurchase}</TableCell>
+              <TableCell>${item.priceAtPurchase}</TableCell>
               <TableCell>
                 ${Number(item.priceAtPurchase) * item.quantity}
               </TableCell>
@@ -71,7 +74,13 @@ const MyOrdersCard = ({ orderItem }: { orderItem: OrderCardProps }) => {
       </Table>
 
       <div className="flex justify-between items-center mt-4">
-        <div>
+        <div className="text-sm space-y-1">
+          <p>
+            <strong>Customer Name:</strong> {customer.name}
+          </p>
+          <p>
+            <strong>Customer Email:</strong> {customer.email}
+          </p>
           <p>
             <strong>Shipping:</strong> {shippingAddress}
           </p>
@@ -85,13 +94,43 @@ const MyOrdersCard = ({ orderItem }: { orderItem: OrderCardProps }) => {
             <strong>Total:</strong> ${totalAmount}
           </p>
         </div>
-        {(status === "PENDING" || status === "CONFIRMED") && (
+        {status === "PENDING" && (
           <Button
-            variant="destructive"
-            className="cursor-pointer"
-            onClick={() => handleUpdateStatus(id, "CANCELLED")}
+            onClick={() => handleUpdateStatus(id, "CONFIRMED")}
+            className="bg-green-500 hover:bg-green-600 cursor-pointer"
           >
-            Cancel Order
+            Approve Order
+          </Button>
+        )}
+
+        {status === "CONFIRMED" && (
+          <Button
+            onClick={() => handleUpdateStatus(id, "SHIPPED")}
+            className="bg-blue-500 hover:bg-blue-600 cursor-pointer"
+          >
+            Mark as Shipped
+          </Button>
+        )}
+
+        {status === "SHIPPED" && (
+          <Button disabled className="bg-purple-400 cursor-not-allowed">
+            Awaiting Delivery
+          </Button>
+        )}
+
+        {status === "DELIVERED" && (
+          <Button
+            onClick={() => handleUpdateStatus(id, "DELIVERED")}
+            disabled
+            className="bg-gray-400 cursor-not-allowed"
+          >
+            Delivered
+          </Button>
+        )}
+
+        {status === "CANCELLED" && (
+          <Button disabled variant="destructive" className="cursor-not-allowed">
+            Cancelled
           </Button>
         )}
       </div>
@@ -99,4 +138,4 @@ const MyOrdersCard = ({ orderItem }: { orderItem: OrderCardProps }) => {
   );
 };
 
-export default MyOrdersCard;
+export default SellerOrderCard;

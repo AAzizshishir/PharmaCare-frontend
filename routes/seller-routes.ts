@@ -18,7 +18,7 @@ export const sellerRoutes: Route[] = [
       },
       {
         title: "Orders",
-        url: "/orders",
+        url: "/seller-orders",
       },
     ],
   },
