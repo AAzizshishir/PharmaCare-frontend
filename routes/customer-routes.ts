@@ -15,4 +15,8 @@ export const customerNavRoutes: NavRoute[] = [
     title: "My Cart",
     url: "/cart",
   },
+  {
+    title: "My Order",
+    url: "/my-orders",
+  },
 ];
