@@ -5,3 +5,4 @@ export type * from "./category.type";
 export type * from "./cart.types";
 export type * from "./user.type";
 export type * from "./order.types";
+export type * from "./review.types";

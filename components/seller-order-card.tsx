@@ -115,7 +115,7 @@ const SellerOrderCard = ({ orderItem }: { orderItem: OrderTypes }) => {
         {status === "SHIPPED" && (
           <Button
             onClick={() => handleUpdateStatus(id, "DELIVERED")}
-            className="bg-gray-400"
+            className="bg-cyan-700 hover:bg-cyan-900 cursor-pointer"
           >
             SHIPPED
           </Button>

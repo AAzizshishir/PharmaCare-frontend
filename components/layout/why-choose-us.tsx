@@ -35,10 +35,7 @@ const WhyChooseUs = () => {
               <CardTitle>Secure Payments</CardTitle>
             </CardHeader>
             <CardContent>
-              <p>
-                Enjoy safe and hassle-free transactions with multiple payment
-                options.
-              </p>
+              <p>Enjoy safe and hassle-free transactions</p>
             </CardContent>
           </Card>
 

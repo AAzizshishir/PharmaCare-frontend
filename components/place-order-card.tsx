@@ -43,12 +43,9 @@ const PlaceOrderCard = ({
         }));
 
         const body = {
-          //   cartId: cart.id,
           shippingAddress: value.shippingAddress,
           items: payload,
         };
-
-        console.log("Order payload:", body);
 
         const res = await orderService.postOrder(body);
 

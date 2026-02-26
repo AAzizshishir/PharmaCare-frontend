@@ -45,10 +45,10 @@ const AddMedicine = ({
 
       console.log(value);
       try {
-        const { data, error } = await medicineService.postMedicine({ value });
+        const { data } = await medicineService.postMedicine({ value });
         console.log(data);
-        if (error) {
-          toast.error(error.message, { id: toastId });
+        if (data.error) {
+          toast.error(data.message, { id: toastId });
           return;
         }
 
@@ -130,7 +130,7 @@ const AddMedicine = ({
                       type="number"
                       id={field.name}
                       name={field.name}
-                      value={field.state.value}
+                      defaultValue={field.state.value}
                       placeholder="Enter Price"
                       onChange={(e) =>
                         field.handleChange(Number(e.target.value))
@@ -155,7 +155,7 @@ const AddMedicine = ({
                       type="number"
                       id={field.name}
                       name={field.name}
-                      value={field.state.value}
+                      defaultValue={field.state.value}
                       placeholder="Enter Stock"
                       onChange={(e) =>
                         field.handleChange(Number(e.target.value))

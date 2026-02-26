@@ -13,6 +13,7 @@ import {
 import { toast } from "sonner";
 import { orderService } from "@/services/order.service";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const MyOrdersCard = ({ orderItem }: { orderItem: OrderCardProps }) => {
   const router = useRouter();
@@ -93,6 +94,23 @@ const MyOrdersCard = ({ orderItem }: { orderItem: OrderCardProps }) => {
           >
             Cancel Order
           </Button>
+        )}
+        {status === "DELIVERED" && (
+          <div className="flex flex-col space-y-2">
+            {orderItems.map((item) => (
+              <Button
+                key={item.medicineId}
+                asChild
+                className="bg-blue-400 hover:bg-blue-600 cursor-pointer"
+              >
+                <Link
+                  href={`/add-review?orderId=${id}&medicineId=${item.medicineId}`}
+                >
+                  Add Review for {item.medicines.name}
+                </Link>
+              </Button>
+            ))}
+          </div>
         )}
       </div>
     </div>
