@@ -1,4 +1,6 @@
-import { ReviewCardProps } from "@/types";
+"use client";
+
+import { AppSession, ReviewCardProps } from "@/types";
 import {
   Card,
   CardContent,
@@ -7,10 +9,37 @@ import {
   CardTitle,
 } from "./ui/card";
 import { FaStar } from "react-icons/fa";
+import { useSession } from "@/lib/auth-client";
+import { Button } from "./ui/button";
+import { toast } from "sonner";
+import { reviewService } from "@/services/review.service";
+import { useRouter } from "next/navigation";
 
 const ReviewCard = ({ review }: { review: ReviewCardProps }) => {
   const { customer, medicines, rating, comment, createdAt } = review;
-  console.log(review);
+
+  const { data } = useSession();
+  const session = data as AppSession | null;
+  const role = session?.user.role;
+
+  const router = useRouter();
+
+  const handleDeleteReview = async (id: string) => {
+    const toastId = toast.loading("Deleting Review");
+    try {
+      const { data, error } = await reviewService.deleteReview(id);
+      console.log(data);
+      if (error) {
+        toast.error(error.message, { id: toastId });
+        return;
+      }
+
+      toast.success("Review Deleted Successfull", { id: toastId });
+      router.refresh();
+    } catch (error) {
+      toast.error("Something went wrong, please try again.", { id: toastId });
+    }
+  };
   return (
     <Card className="w-full shadow-sm">
       <CardHeader>
@@ -40,6 +69,17 @@ const ReviewCard = ({ review }: { review: ReviewCardProps }) => {
           Reviewed on {new Date(createdAt).toLocaleDateString()}
         </p>
       </CardFooter>
+
+      <div className="flex justify-end mr-6">
+        {role === "CUSTOMER" && (
+          <Button
+            onClick={() => handleDeleteReview(review.id)}
+            className="bg-blue-400 hover:bg-blue-600 cursor-pointer"
+          >
+            Delete Review
+          </Button>
+        )}
+      </div>
     </Card>
   );
 };

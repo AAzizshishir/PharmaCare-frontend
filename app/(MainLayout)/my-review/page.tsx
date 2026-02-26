@@ -15,7 +15,7 @@ const MyReviews = async () => {
   const reviews = data.data;
 
   return (
-    <div>
+    <div className="container mx-auto">
       {reviews.map((review: ReviewCardProps) => (
         <ReviewCard key={review.id} review={review} />
       ))}
