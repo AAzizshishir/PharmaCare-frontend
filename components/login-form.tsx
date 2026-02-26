@@ -132,7 +132,7 @@ export function LoginForm({
           <Button
             form="login-form"
             type="submit"
-            className="w-full cursor-pointer"
+            className="w-full cursor-pointer bg-blue-400 hover:bg-blue-600"
           >
             Login
           </Button>

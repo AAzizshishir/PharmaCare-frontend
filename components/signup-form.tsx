@@ -181,7 +181,7 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
         <Button
           form="signup-form"
           type="submit"
-          className="w-full cursor-pointer"
+          className="w-full cursor-pointer bg-blue-400 hover:bg-blue-600"
         >
           Register
         </Button>

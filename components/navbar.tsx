@@ -122,7 +122,7 @@ const Navbar = ({
                 </div>
                 <Button
                   onClick={() => signOut()}
-                  className="cursor-pointer bg-blue-400 text-white"
+                  className="cursor-pointer bg-blue-400 hover:bg-blue-600 text-white"
                 >
                   Logout
                 </Button>
@@ -186,7 +186,7 @@ const Navbar = ({
 
                         <Button
                           onClick={() => signOut()}
-                          className="cursor-pointer bg-white text-black"
+                          className="cursor-pointer bg-blue-400 hover:bg-blue-600 text-white"
                         >
                           Logout
                         </Button>

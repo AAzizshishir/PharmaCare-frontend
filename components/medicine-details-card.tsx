@@ -31,10 +31,9 @@ const MedicineDetailsCard = ({
   const handleAddToCart = async (id: string, quantity: number) => {
     const toastId = toast.loading("Adding Medicine To Cart");
     try {
-      const { data, error } = await cartService.addToCart(id, quantity);
-      console.log(data);
-      if (error) {
-        toast.error(error.message, { id: toastId });
+      const res = await cartService.addToCart(id, quantity);
+      if (!res.success) {
+        toast.error(res.message, { id: toastId });
         return;
       }
       toast.success("Medicine Added Successfully", { id: toastId });

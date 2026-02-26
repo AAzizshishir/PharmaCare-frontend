@@ -34,13 +34,12 @@ const EditMedicineCard = ({
   categories: { data: CategoryTypes[] };
   medicine: { data: MedicineDataType };
 }) => {
-  console.log(medicine?.data.name);
   const form = useForm({
     defaultValues: {
       name: "",
       description: "",
-      price: 0,
-      stock: 0,
+      price: medicine?.data.price,
+      stock: medicine?.data.stock,
       categoryId: "",
     },
     validators: {
