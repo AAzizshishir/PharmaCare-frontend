@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Table,
   TableBody,
@@ -8,14 +6,9 @@ import {
   TableHeader,
   TableRow,
 } from "./ui/table";
-import { Button } from "./ui/button";
-import { toast } from "sonner";
-import { orderService } from "@/services/order.service";
-import { useRouter } from "next/navigation";
 import { OrderTypes } from "@/types";
 
-const SellerOrderCard = ({ orderItem }: { orderItem: OrderTypes }) => {
-  const router = useRouter();
+const AdminOrdersCard = ({ orderItem }: { orderItem: OrderTypes }) => {
   const {
     id,
     orderItems,
@@ -26,22 +19,6 @@ const SellerOrderCard = ({ orderItem }: { orderItem: OrderTypes }) => {
     status,
     totalAmount,
   } = orderItem;
-
-  const handleUpdateStatus = async (id: string, status: string) => {
-    const toastId = toast.loading("Updating status");
-    try {
-      const res = await orderService.updateOrderStatus(id, status);
-      console.log(res);
-      if (res.error) {
-        toast.error(res.error.message, { id: toastId });
-        return;
-      }
-      toast.success("Status Update Successfully", { id: toastId });
-      router.refresh();
-    } catch (error) {
-      toast.error("Something went wrong, please try again.", { id: toastId });
-    }
-  };
 
   return (
     <div className="border rounded-md shadow-md p-4">
@@ -94,41 +71,9 @@ const SellerOrderCard = ({ orderItem }: { orderItem: OrderTypes }) => {
             <strong>Total:</strong> ${totalAmount}
           </p>
         </div>
-        {status === "PENDING" && (
-          <Button
-            onClick={() => handleUpdateStatus(id, "CONFIRMED")}
-            className="bg-green-500 hover:bg-green-600 cursor-pointer"
-          >
-            Approve Order
-          </Button>
-        )}
-
-        {status === "CONFIRMED" && (
-          <Button
-            onClick={() => handleUpdateStatus(id, "SHIPPED")}
-            className="bg-blue-500 hover:bg-blue-600 cursor-pointer"
-          >
-            Mark as Shipped
-          </Button>
-        )}
-
-        {status === "SHIPPED" && (
-          <Button
-            onClick={() => handleUpdateStatus(id, "DELIVERED")}
-            className="bg-gray-400"
-          >
-            SHIPPED
-          </Button>
-        )}
-
-        {status === "CANCELLED" && (
-          <Button disabled variant="destructive" className="cursor-not-allowed">
-            Cancelled
-          </Button>
-        )}
       </div>
     </div>
   );
 };
 
-export default SellerOrderCard;
+export default AdminOrdersCard;

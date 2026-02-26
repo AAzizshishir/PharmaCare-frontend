@@ -28,6 +28,25 @@ export const orderService = {
     }
   },
 
+  getOrdersForAdmin: async function () {
+    try {
+      const res = await fetch(`${PUBLIC_API_URL}/api/orders/admin`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      if (data.success) {
+        return data;
+      } else {
+        return { error: { message: data.message || "Failed" } };
+      }
+    } catch (error) {
+      return { data: null, error: { message: "Something Went Wrong" } };
+    }
+  },
+
   updateOrderStatus: async function (id: string, status: string) {
     try {
       const res = await fetch(`${PUBLIC_API_URL}/api/order/seller/${id}`, {

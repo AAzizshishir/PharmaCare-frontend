@@ -21,7 +21,7 @@ export type OrderCardProps = {
   customer: UserType;
 };
 
-export type SellerOrderTypes = {
+export type OrderTypes = {
   id: string;
   createdAt: string;
   paymentMethod: string;
@@ -31,13 +31,3 @@ export type SellerOrderTypes = {
   orderItems: OrderItem[];
   customer: UserType;
 };
-
-// {
-//     id: string;
-//     customerId: string;
-//     shippingAddress: string;
-//     paymentMethod: string;
-//     status: string;
-//     totalAmount: string;
-//     createdAt: string;
-//   };

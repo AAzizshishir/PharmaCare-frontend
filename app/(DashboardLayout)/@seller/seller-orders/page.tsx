@@ -1,5 +1,5 @@
 import SellerOrderCard from "@/components/seller-order-card";
-import { SellerOrderTypes } from "@/types";
+import { OrderTypes } from "@/types";
 import { cookies } from "next/headers";
 const PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -18,7 +18,7 @@ const SellerOrders = async () => {
     <div className="container mx-auto">
       {ordersData && ordersData.length > 0 ? (
         <div>
-          {ordersData.map((orderItem: SellerOrderTypes) => (
+          {ordersData.map((orderItem: OrderTypes) => (
             <SellerOrderCard key={orderItem.id} orderItem={orderItem} />
           ))}
         </div>
