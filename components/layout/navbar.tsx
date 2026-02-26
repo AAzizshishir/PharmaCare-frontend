@@ -235,7 +235,7 @@ const renderMobileMenuItem = (item: MenuItem) => {
     <Link
       key={item.title}
       href={item.url}
-      className="text-md font-semibold text-white"
+      className="text-md font-semibold text-black"
     >
       {item.title}
     </Link>
