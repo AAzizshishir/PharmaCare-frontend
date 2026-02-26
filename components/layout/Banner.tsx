@@ -1,7 +1,6 @@
-import bannerImage from "../public/banner.jpg";
-import Image from "next/image";
+import bannerImage from "@/public/banner.jpg";
 import Link from "next/link";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 const Banner = () => {
   return (
