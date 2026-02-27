@@ -1,11 +1,8 @@
 import UserCard from "@/components/userCard";
-// import { UsersService } from "@/services/users.service";
 import { cookies } from "next/headers";
 const PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const UsersPage = async () => {
-  // const res = await UsersService.getUsers();
-  // const users = res.data;
   const cookieStore = await cookies();
   const usersRes = await fetch(`${PUBLIC_API_URL}/api/admin/users`, {
     next: { revalidate: 60 },

@@ -1,10 +1,11 @@
 import AddReviewCard from "@/components/add-review-card";
+import { Suspense } from "react";
 
 const AddReview = () => {
   return (
-    <div>
+    <Suspense fallback={<div>Loading...</div>}>
       <AddReviewCard />
-    </div>
+    </Suspense>
   );
 };
 
