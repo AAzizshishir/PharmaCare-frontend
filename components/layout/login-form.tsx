@@ -60,7 +60,7 @@ export function LoginForm({
       }
     },
   });
-
+  console.log(useSession());
   const { data } = useSession();
   console.log(data);
   return (
