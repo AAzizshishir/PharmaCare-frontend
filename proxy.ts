@@ -1,69 +1,87 @@
 import { NextRequest, NextResponse } from "next/server";
-import { UsersService } from "./services/users.service";
 import { Roles } from "./constants/role";
 
 export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  console.log(pathname);
 
-  let isAuthenticated = false;
-  let isAdmin = false;
-  let isSeller = false;
-  let isCustomer = false;
-  const { data } = await UsersService.getSession();
-  console.log(data);
-  if (data) {
-    isAuthenticated = true;
-    isAdmin = data.user.role === Roles.admin;
+  // Skip middleware for verify-email route
+  if (pathname.startsWith("/verify-email")) {
+    return NextResponse.next();
   }
 
-  if (!isAuthenticated) {
+  const sessionToken =
+    request.cookies.get("__Secure-better-auth.session_token")?.value ||
+    request.cookies.get("better-auth.session_token")?.value;
+
+  const sessionData =
+    request.cookies.get("__Secure-better-auth.session_data")?.value ||
+    request.cookies.get("better-auth.session_data")?.value;
+
+  // If either cookie is missing, redirect
+  if (!sessionToken || !sessionData) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  // for admin
-  if (isAdmin && pathname.startsWith("/seller-dashboard")) {
-    return NextResponse.redirect(new URL("/admin-dashboard", request.url));
-  }
-  if (isAdmin && pathname.startsWith("/my-review")) {
-    return NextResponse.redirect(new URL("/admin-dashboard", request.url));
-  }
-  if (isAdmin && pathname.startsWith("/my-orders")) {
-    return NextResponse.redirect(new URL("/admin-dashboard", request.url));
-  }
-  if (isAdmin && pathname.startsWith("/cart")) {
-    return NextResponse.redirect(new URL("/admin-dashboard", request.url));
+  // Parse session_data (Better Auth stores JSON here)
+  let parsedData: any;
+
+  try {
+    const decoded = Buffer.from(sessionData, "base64").toString("utf-8");
+    parsedData = JSON.parse(decoded);
+  } catch (error) {
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  // for seller
-  if (data) {
-    isAuthenticated = true;
-    isSeller = data.user.role === Roles.seller;
+  // Extract role directly from parsedData
+  const role = parsedData?.session?.user?.role;
+  if (!role) {
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  if (isSeller && pathname.startsWith("/admin-dashboard")) {
-    return NextResponse.redirect(new URL("/seller-dashboard", request.url));
-  }
-  if (isSeller && pathname.startsWith("/my-review")) {
-    return NextResponse.redirect(new URL("/seller-dashboard", request.url));
-  }
-  if (isSeller && pathname.startsWith("/my-orders")) {
-    return NextResponse.redirect(new URL("/seller-dashboard", request.url));
-  }
-  if (isSeller && pathname.startsWith("/cart")) {
-    return NextResponse.redirect(new URL("/seller-dashboard", request.url));
+  // Role-based restrictions
+  if (role === Roles.admin) {
+    if (
+      pathname.startsWith("/seller-dashboard") ||
+      pathname.startsWith("/add-medicine") ||
+      pathname.startsWith("/my-medicine") ||
+      pathname.startsWith("/seller-orders") ||
+      pathname.startsWith("/seller-medicine-review") ||
+      pathname.startsWith("/my-review") ||
+      pathname.startsWith("/my-orders") ||
+      pathname.startsWith("/cart")
+    ) {
+      return NextResponse.redirect(new URL("/admin-dashboard", request.url));
+    }
   }
 
-  // for customer
-  if (data) {
-    isAuthenticated = true;
-    isCustomer = data.user.role === Roles.customer;
+  if (role === Roles.seller) {
+    if (
+      pathname.startsWith("/admin-dashboard") ||
+      pathname.startsWith("/categories") ||
+      pathname.startsWith("/users") ||
+      pathname.startsWith("/admin-orders") ||
+      pathname.startsWith("/my-review") ||
+      pathname.startsWith("/my-orders") ||
+      pathname.startsWith("/cart")
+    ) {
+      return NextResponse.redirect(new URL("/seller-dashboard", request.url));
+    }
   }
-  if (isCustomer && pathname.startsWith("/admin-dashboard")) {
-    return NextResponse.redirect(new URL("/", request.url));
-  }
-  if (isCustomer && pathname.startsWith("/seller-dashboard")) {
-    return NextResponse.redirect(new URL("/", request.url));
+
+  if (role === Roles.customer) {
+    if (
+      pathname.startsWith("/admin-dashboard") ||
+      pathname.startsWith("/seller-dashboard") ||
+      pathname.startsWith("/add-medicine") ||
+      pathname.startsWith("/my-medicine") ||
+      pathname.startsWith("/seller-orders") ||
+      pathname.startsWith("/seller-medicine-review") ||
+      pathname.startsWith("/categories") ||
+      pathname.startsWith("/users") ||
+      pathname.startsWith("/admin-orders")
+    ) {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
   }
 
   return NextResponse.next();
@@ -75,6 +93,13 @@ export const config = {
     "/seller-dashboard/:path*",
     "/admin-dashboard",
     "/admin-dashboard/:path*",
+    "/add-medicine",
+    "/my-medicine",
+    "/seller-orders",
+    "/seller-medicine-review",
+    "/categories",
+    "/users",
+    "/admin-orders",
     "/my-review",
     "/my-orders",
     "/cart",
