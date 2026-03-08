@@ -1,13 +1,19 @@
+"use server";
+
+import { cookies } from "next/headers";
+
 const PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
 const API_URL = process.env.API_URL;
 
 export const cartService = {
   addToCart: async function (id: string, quantity: number) {
     try {
+      const cookieStore = await cookies();
       const res = await fetch(`${PUBLIC_API_URL}/api/cart/${id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          cookie: cookieStore.toString(),
         },
         body: JSON.stringify({ quantity }),
         next: { revalidate: 60 },
