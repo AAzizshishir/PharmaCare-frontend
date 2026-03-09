@@ -52,6 +52,26 @@ export const getMedicineReviews = async (medicineId: string) => {
   }
 };
 
+export const getCustomerReviews = async () => {
+  try {
+    const cookieStore = await cookies();
+    const res = await fetch(`${PUBLIC_API_URL}/api/review`, {
+      method: "GET",
+      headers: {
+        cookie: cookieStore.toString(),
+      },
+    });
+    const data = await res.json();
+    if (data.success) {
+      return data;
+    } else {
+      return { error: { message: data.message || "Failed" } };
+    }
+  } catch (error) {
+    return { data: null, error: { message: "Something Went Wrong" } };
+  }
+};
+
 export const getSellerReviews = async () => {
   try {
     const cookieStore = await cookies();

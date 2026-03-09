@@ -12,6 +12,9 @@ const roboto = Roboto({
 export const metadata: Metadata = {
   title: "Pharma Care",
   description: "This app about to Medicine",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

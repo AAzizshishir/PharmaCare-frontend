@@ -29,7 +29,8 @@ export interface MedicineDataWithCategory {
 
 export interface MedicineInput {
   name: string;
-  description: string;
+  description?: string;
+  imageUrl?: string;
   price: number;
   stock: number;
   categoryId: string;

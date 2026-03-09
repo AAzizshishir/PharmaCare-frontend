@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
   },
 
   images: {
-    domains: ["i.ibb.co"], // allow imgbb images
+    domains: ["i.ibb.co", "i.ibb.co.com"], // allow imgbb images
   },
 };
 

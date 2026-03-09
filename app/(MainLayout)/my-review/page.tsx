@@ -1,24 +1,25 @@
+import { getCustomerReviews } from "@/app/actions/review.actions";
 import ReviewCard from "@/components/review-card";
 import { ReviewCardProps } from "@/types";
-import { cookies } from "next/headers";
-const PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const MyReviews = async () => {
-  const cookieStore = await cookies();
-  const res = await fetch(`${PUBLIC_API_URL}/api/review`, {
-    method: "GET",
-    headers: {
-      cookie: cookieStore.toString(),
-    },
-  });
-  const data = await res.json();
-  const reviews = data.data;
+  const data = await getCustomerReviews();
+  console.log(data.data);
+  const reviews = data?.data;
 
   return (
     <div className="container mx-auto">
-      {reviews.map((review: ReviewCardProps) => (
-        <ReviewCard key={review.id} review={review} />
-      ))}
+      {reviews && reviews.length > 0 ? (
+        <div>
+          {reviews.map((review: ReviewCardProps) => (
+            <ReviewCard key={review.id} review={review} />
+          ))}
+        </div>
+      ) : (
+        <p className="text-center text-gray-600 mt-6">
+          Your Don't Give Any Reviews.
+        </p>
+      )}
     </div>
   );
 };

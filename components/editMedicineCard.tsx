@@ -19,7 +19,7 @@ import { editMedicineBySeller } from "@/app/actions/medicine.actions";
 
 const formSchema = z.object({
   name: z.string(),
-  description: z.string(),
+  imageUrl: z.string(),
   price: z.number().min(1, "Price is required"),
   stock: z.number().min(1, "Stock is required"),
   categoryId: z.string(),
@@ -37,7 +37,7 @@ const EditMedicineCard = ({
   const form = useForm({
     defaultValues: {
       name: medicine?.data.name || "",
-      description: medicine?.data.description || "",
+      imageUrl: medicine?.data.imageUrl || "",
       price: medicine?.data.price,
       stock: medicine?.data.stock,
       categoryId: medicine?.data.categoryId || "",
@@ -104,30 +104,7 @@ const EditMedicineCard = ({
                 );
               }}
             />
-            {/* Description */}
-            <form.Field
-              name="description"
-              children={(field) => {
-                const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid;
-                return (
-                  <Field>
-                    <Label>Medicine Description</Label>
-                    <Input
-                      type="text"
-                      id={field.name}
-                      name={field.name}
-                      defaultValue={medicine.data.description}
-                      placeholder="Enter Description"
-                      onChange={(e) => field.handleChange(e.target.value)}
-                    />
-                    {isInvalid && (
-                      <FieldError errors={field.state.meta.errors} />
-                    )}
-                  </Field>
-                );
-              }}
-            />
+
             {/* Price */}
             <form.Field
               name="price"
@@ -180,6 +157,29 @@ const EditMedicineCard = ({
                 );
               }}
             />
+            {/* Image Url */}
+            <form.Field
+              name="imageUrl"
+              children={(field) => {
+                const isInvalid =
+                  field.state.meta.isTouched && !field.state.meta.isValid;
+                return (
+                  <Field>
+                    <Label>Medicine Url</Label>
+                    <Input
+                      type="text"
+                      id={field.name}
+                      name={field.name}
+                      defaultValue={medicine?.data.imageUrl}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                    />
+                    {isInvalid && (
+                      <FieldError errors={field.state.meta.errors} />
+                    )}
+                  </Field>
+                );
+              }}
+            />
             {/* Category */}
             <form.Field
               name="categoryId"
@@ -219,7 +219,7 @@ const EditMedicineCard = ({
         <Button
           form="addMedicine-form"
           type="submit"
-          className="w-full cursor-pointer bg-blue-400"
+          className="w-full cursor-pointer bg-blue-400 hover:bg-blue-500"
         >
           Edit Medicine
         </Button>
