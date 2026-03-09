@@ -12,7 +12,7 @@ import {
 } from "./ui/table";
 import { Button } from "./ui/button";
 import { useState } from "react";
-import { UsersService } from "@/services/users.service";
+import { updateUserStatus } from "@/app/actions/user.actions";
 
 const UserCard = ({ userRes }: { userRes: UserType[] }) => {
   const [users, setUsers] = useState<UserType[]>(userRes);
@@ -20,7 +20,7 @@ const UserCard = ({ userRes }: { userRes: UserType[] }) => {
   const handleToggleStatus = async (user: UserType) => {
     const newStatus = user.status === "ACTIVE" ? "BANNED" : "ACTIVE";
 
-    await UsersService.updateUserStatus(user.id, newStatus);
+    await updateUserStatus(user.id, newStatus);
 
     setUsers((prev) =>
       prev.map((u) => (u.id === user.id ? { ...u, status: newStatus } : u)),

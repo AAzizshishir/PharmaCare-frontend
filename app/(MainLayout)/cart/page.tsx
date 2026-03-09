@@ -1,27 +1,22 @@
+import { getCartItems } from "@/app/actions/cart.actions";
 import CartCard from "@/components/cart-card";
 import { Button } from "@/components/ui/button";
 import { CartItem } from "@/types";
-import { cookies } from "next/headers";
 import Link from "next/link";
 
-const PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
-
 const Cart = async () => {
-  const cookieStore = await cookies();
-  const cart = await fetch(`${PUBLIC_API_URL}/api/cart`, {
-    headers: {
-      cookie: cookieStore.toString(),
-    },
-    next: { revalidate: 60 },
-  });
-  const data = await cart.json();
-  const items = data?.data?.items;
+  const result = await getCartItems();
+  const cartItems = result?.data;
+
+  if (!cartItems || !cartItems.items) {
+    return <div>No items found or failed to load.</div>;
+  }
   return (
     <div className="container mx-auto">
-      {items && items.length > 0 ? (
+      {cartItems.items && cartItems?.items.length > 0 ? (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {items.map((item: CartItem) => (
+            {cartItems.items.map((item: CartItem) => (
               <CartCard key={item.id} item={item} />
             ))}
           </div>

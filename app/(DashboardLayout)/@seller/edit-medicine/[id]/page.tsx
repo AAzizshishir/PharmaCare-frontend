@@ -1,6 +1,6 @@
+import { getCategories } from "@/app/actions/category.actions";
+import { getMedicineById } from "@/app/actions/medicine.actions";
 import EditMedicineCard from "@/components/editMedicineCard";
-import { categoryService } from "@/services/category.service";
-import { medicineService } from "@/services/medicine.service";
 
 const EditMedicine = async ({
   params,
@@ -8,8 +8,8 @@ const EditMedicine = async ({
   params: Promise<{ id: string }>;
 }) => {
   const { id } = await params;
-  const categories = await categoryService.getCategories();
-  const medicine = await medicineService.getMedicineById(id);
+  const categories = await getCategories();
+  const medicine = await getMedicineById(id);
   return (
     <div>
       <EditMedicineCard id={id} categories={categories} medicine={medicine} />

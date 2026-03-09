@@ -5,7 +5,9 @@ import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { toast } from "sonner";
-import { cartService } from "@/services/cart.service";
+import { addToCart } from "@/app/actions/cart.actions";
+import { useSession } from "@/lib/auth-client";
+import { AppSession } from "@/types";
 
 interface MedicineData {
   id: string;
@@ -28,10 +30,14 @@ const MedicineDetailsCard = ({
   const { id, name, description, price, stock, category } = medicineDetails;
   const [quantity, setQuantity] = useState(1);
 
+  const { data } = useSession();
+  const session = data as AppSession | null;
+  const role = session?.user.role;
+
   const handleAddToCart = async (id: string, quantity: number) => {
     const toastId = toast.loading("Adding Medicine To Cart");
     try {
-      const res = await cartService.addToCart(id, quantity);
+      const res = await addToCart(id, quantity);
       if (!res.success) {
         toast.error(res.message, { id: toastId });
         return;
@@ -49,24 +55,28 @@ const MedicineDetailsCard = ({
       <p>Price : ${price}</p>
       <p>Stock : {stock}</p>
       <p>Category : {category.name}</p>
-      <div className="flex items-center gap-2 my-2">
-        <Label>Quantity:</Label>
-        <Input
-          type="number"
-          min={1}
-          max={stock}
-          value={quantity}
-          onChange={(e) => setQuantity(Number(e.target.value))}
-          className="border border-blue-300 rounded px-2 py-1 w-20"
-        />
-      </div>
+      {role === "CUSTOMER" && (
+        <div className="flex items-center gap-2 my-2">
+          <Label>Quantity:</Label>
+          <Input
+            type="number"
+            min={1}
+            max={stock}
+            value={quantity}
+            onChange={(e) => setQuantity(Number(e.target.value))}
+            className="border border-blue-300 rounded px-2 py-1 w-20"
+          />
+        </div>
+      )}
 
-      <Button
-        onClick={() => handleAddToCart(id, quantity)}
-        className="bg-blue-500 my-2 hover:bg-blue-600 cursor-pointer"
-      >
-        Add To Cart
-      </Button>
+      {role === "CUSTOMER" && (
+        <Button
+          onClick={() => handleAddToCart(id, quantity)}
+          className="bg-blue-500 my-2 hover:bg-blue-600 cursor-pointer"
+        >
+          Add To Cart
+        </Button>
+      )}
     </div>
   );
 };

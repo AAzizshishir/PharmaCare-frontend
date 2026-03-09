@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { MedicineData } from "@/types";
-import { medicineService } from "@/services/medicine.service";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { deleteMedicineBySeller } from "@/app/actions/medicine.actions";
 
 const SellerMedicineCard = ({ medicine }: { medicine: MedicineData }) => {
   const router = useRouter();
@@ -13,7 +13,7 @@ const SellerMedicineCard = ({ medicine }: { medicine: MedicineData }) => {
   const handleDelete = async (id: string) => {
     const toastId = toast.loading("Deleting Medicine");
     try {
-      const { data, error } = await medicineService.deleteMedicine(id);
+      const { data, error } = await deleteMedicineBySeller(id);
       console.log(data);
       if (error) {
         toast.error(error.message, { id: toastId });

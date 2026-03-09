@@ -10,9 +10,9 @@ import {
 } from "./ui/table";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
-import { orderService } from "@/services/order.service";
 import { useRouter } from "next/navigation";
 import { OrderTypes } from "@/types";
+import { updateOrderStatus } from "@/app/actions/order.actions";
 
 const SellerOrderCard = ({ orderItem }: { orderItem: OrderTypes }) => {
   const router = useRouter();
@@ -30,7 +30,7 @@ const SellerOrderCard = ({ orderItem }: { orderItem: OrderTypes }) => {
   const handleUpdateStatus = async (id: string, status: string) => {
     const toastId = toast.loading("Updating status");
     try {
-      const res = await orderService.updateOrderStatus(id, status);
+      const res = await updateOrderStatus(id, status);
       console.log(res);
       if (res.error) {
         toast.error(res.error.message, { id: toastId });

@@ -1,10 +1,10 @@
 "use client";
 
-import { cartService } from "@/services/cart.service";
 import { CartItem } from "@/types";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Button } from "./ui/button";
+import { deleteCartItem } from "@/app/actions/cart.actions";
 
 const CartCard = ({ item }: { item: CartItem }) => {
   const { medicine, quantity, subtotal } = item;
@@ -13,7 +13,7 @@ const CartCard = ({ item }: { item: CartItem }) => {
   const handleDelete = async (id: string) => {
     const toastId = toast.loading("Deleting CartItem");
     try {
-      const res = await cartService.deleteCartItem(id);
+      const res = await deleteCartItem(id);
       console.log(res);
       if (res.error) {
         toast.error(res.error.message, { id: toastId });

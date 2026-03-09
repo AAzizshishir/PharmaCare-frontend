@@ -14,7 +14,7 @@ import { Input } from "./ui/input";
 import z from "zod";
 import { useForm } from "@tanstack/react-form";
 import { useSearchParams } from "next/navigation";
-import { reviewService } from "@/services/review.service";
+import { addReview } from "@/app/actions/review.actions";
 
 const formSchema = z.object({
   rating: z.number().min(1, "Rating minimum 1").max(5, "Rating maximum 5"),
@@ -43,7 +43,7 @@ const AddReviewCard = () => {
           rating: value.rating,
           comment: value.comment,
         };
-        const res = await reviewService.addReview(body);
+        const res = await addReview(body);
         if (res.error) {
           toast.error(res.error.message, { id: toastId });
           return;

@@ -14,7 +14,7 @@ import { toast } from "sonner";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { CategoryTypes } from "./../types/category.type";
-import { medicineService } from "@/services/medicine.service";
+import { postMedicineBySeller } from "@/app/actions/medicine.actions";
 
 const formSchema = z.object({
   name: z.string(),
@@ -45,7 +45,7 @@ const AddMedicine = ({
 
       console.log(value);
       try {
-        const { data } = await medicineService.postMedicine({ value });
+        const { data } = await postMedicineBySeller({ value });
         console.log(data);
         if (data.error) {
           toast.error(data.message, { id: toastId });

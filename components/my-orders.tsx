@@ -11,9 +11,9 @@ import {
   TableRow,
 } from "./ui/table";
 import { toast } from "sonner";
-import { orderService } from "@/services/order.service";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { cancelOrder } from "@/app/actions/order.actions";
 
 const MyOrdersCard = ({ orderItem }: { orderItem: OrderCardProps }) => {
   const router = useRouter();
@@ -30,7 +30,7 @@ const MyOrdersCard = ({ orderItem }: { orderItem: OrderCardProps }) => {
   const cancellOrder = async (id: string, status: string) => {
     const toastId = toast.loading("Cancelling Order");
     try {
-      const res = await orderService.cancellOrder(id, status);
+      const res = await cancelOrder(id, status);
       console.log(res);
       if (res.error) {
         toast.error(res.error.message, { id: toastId });

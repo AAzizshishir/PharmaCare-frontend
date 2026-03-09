@@ -12,8 +12,8 @@ import { FaStar } from "react-icons/fa";
 import { useSession } from "@/lib/auth-client";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
-import { reviewService } from "@/services/review.service";
 import { useRouter } from "next/navigation";
+import { deleteReview } from "@/app/actions/review.actions";
 
 const ReviewCard = ({ review }: { review: ReviewCardProps }) => {
   const { customer, medicines, rating, comment, createdAt } = review;
@@ -27,7 +27,7 @@ const ReviewCard = ({ review }: { review: ReviewCardProps }) => {
   const handleDeleteReview = async (id: string) => {
     const toastId = toast.loading("Deleting Review");
     try {
-      const { data, error } = await reviewService.deleteReview(id);
+      const { data, error } = await deleteReview(id);
       console.log(data);
       if (error) {
         toast.error(error.message, { id: toastId });

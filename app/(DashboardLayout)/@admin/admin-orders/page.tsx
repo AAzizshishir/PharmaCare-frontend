@@ -1,9 +1,9 @@
+import { getOrdersForAdmin } from "@/app/actions/order.actions";
 import AdminOrdersCard from "@/components/admin-orders-card";
-import { orderService } from "@/services/order.service";
 import { OrderTypes } from "@/types";
 
 const OrderPage = async () => {
-  const orders = await orderService.getOrdersForAdmin();
+  const orders = await getOrdersForAdmin();
   const ordersData = orders.data;
   console.log(orders.data);
   return (

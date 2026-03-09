@@ -1,8 +1,8 @@
+import { getCategories } from "@/app/actions/category.actions";
 import AddMedicine from "@/components/addMedicine";
-import { categoryService } from "@/services/category.service";
 
 const AddMedicinePage = async () => {
-  const categories = await categoryService.getCategories();
+  const categories = await getCategories();
   return (
     <div>
       <AddMedicine categories={categories} />

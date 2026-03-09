@@ -1,23 +1,19 @@
-// import { medicineService } from "@/services/medicine.service";
+import { getMedicineBySeller } from "@/app/actions/medicine.actions";
 import SellerMedicineCard from "@/components/seller-medicine-card";
 import { MedicineData } from "@/types";
-import { cookies } from "next/headers";
-const PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const MyMedicines = async () => {
-  // const data = await medicineService.getMedicineBySeller();
+  const sellerMedicine = await getMedicineBySeller();
 
-  const cookieStore = await cookies();
-  const medicines = await fetch(`${PUBLIC_API_URL}/api/seller/medicines`, {
-    next: { revalidate: 60 },
-    headers: {
-      cookie: cookieStore.toString(),
-    },
-  });
-  const data = await medicines.json();
+  console.log(sellerMedicine);
+
+  if (!sellerMedicine.data) {
+    return <div>No medicines found or failed to load.</div>;
+  }
+
   return (
     <div className="grid grid-cols-3 gap-4 container mx-auto">
-      {data.data.map((data: MedicineData) => (
+      {sellerMedicine.data.map((data: MedicineData) => (
         <SellerMedicineCard key={data.id} medicine={data} />
       ))}
     </div>

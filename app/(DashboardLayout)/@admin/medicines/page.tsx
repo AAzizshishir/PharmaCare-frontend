@@ -1,9 +1,9 @@
+import { getMedicine } from "@/app/actions/medicine.actions";
 import MedicineCard from "@/components/medicineCard";
-import { medicineService } from "@/services/medicine.service";
 import { MedicineData } from "@/types";
 
 const AdminMedicinePage = async () => {
-  const medicines = await medicineService.getMedicine();
+  const medicines = await getMedicine();
   return (
     <div>
       <div className="grid grid-cols-3 gap-4 container mx-auto">

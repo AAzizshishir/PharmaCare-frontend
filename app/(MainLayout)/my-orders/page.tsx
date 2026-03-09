@@ -1,19 +1,10 @@
+import { getOrdersForUser } from "@/app/actions/order.actions";
 import MyOrdersCard from "@/components/my-orders";
 import { OrderCardProps } from "@/types";
-import { cookies } from "next/headers";
-
-const PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const MyOrderPage = async () => {
-  const cookieStore = await cookies();
-  const ordersRes = await fetch(`${PUBLIC_API_URL}/api/orders`, {
-    next: { revalidate: 60 },
-    headers: {
-      cookie: cookieStore.toString(),
-    },
-  });
-  const orders = await ordersRes.json();
-  const ordersData = orders?.data;
+  const result = await getOrdersForUser();
+  const ordersData = result?.data;
   return (
     <div className="container mx-auto">
       {ordersData && ordersData.length > 0 ? (

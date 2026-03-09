@@ -1,7 +1,7 @@
+import { getMedicineById } from "@/app/actions/medicine.actions";
+import { getMedicineReviews } from "@/app/actions/review.actions";
 import MedicineDetailsCard from "@/components/medicine-details-card";
 import ReviewCard from "@/components/review-card";
-import { medicineService } from "@/services/medicine.service";
-import { reviewService } from "@/services/review.service";
 import { ReviewCardProps } from "@/types";
 
 const MedicinePage = async ({
@@ -11,11 +11,11 @@ const MedicinePage = async ({
 }) => {
   const { id } = await params;
 
-  const medicine = await medicineService.getMedicineById(id);
+  const medicine = await getMedicineById(id);
   const medicineDetails = medicine.data;
 
   console.log(id);
-  const medicineReviews = await reviewService.getMedicineReviews(id);
+  const medicineReviews = await getMedicineReviews(id);
   const medicineReviewsData = medicineReviews?.data;
 
   return (

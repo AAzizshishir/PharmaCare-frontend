@@ -1,9 +1,9 @@
+import { getCategories } from "@/app/actions/category.actions";
 import AddCategoryCard from "@/components/addCategoryCard";
-import { categoryService } from "@/services/category.service";
 import { CategoryTypes } from "@/types";
 
 const ManageCategoryPage = async () => {
-  const categories = await categoryService.getCategories();
+  const categories = await getCategories();
   const category = categories.data;
   console.log(categories);
   return (

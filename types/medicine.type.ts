@@ -24,3 +24,11 @@ export interface MedicineDataWithCategory {
   updatedAt: string;
   category: CategoryTypes;
 }
+
+export interface MedicineInput {
+  name: string;
+  description: string;
+  price: number;
+  stock: number;
+  categoryId: string;
+}

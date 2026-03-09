@@ -13,9 +13,9 @@ import { Input } from "./ui/input";
 import { toast } from "sonner";
 import { useForm } from "@tanstack/react-form";
 import { Button } from "./ui/button";
-import { MedicineDataType, medicineService } from "@/services/medicine.service";
-import { CategoryTypes } from "@/types";
+import { CategoryTypes, MedicineInput } from "@/types";
 import { Label } from "./ui/label";
+import { editMedicineBySeller } from "@/app/actions/medicine.actions";
 
 const formSchema = z.object({
   name: z.string(),
@@ -32,15 +32,15 @@ const EditMedicineCard = ({
 }: {
   id: string;
   categories: { data: CategoryTypes[] };
-  medicine: { data: MedicineDataType };
+  medicine: { data: MedicineInput };
 }) => {
   const form = useForm({
     defaultValues: {
-      name: "",
-      description: "",
+      name: medicine?.data.name || "",
+      description: medicine?.data.description || "",
       price: medicine?.data.price,
       stock: medicine?.data.stock,
-      categoryId: "",
+      categoryId: medicine?.data.categoryId || "",
     },
     validators: {
       onSubmit: formSchema,
@@ -50,7 +50,7 @@ const EditMedicineCard = ({
 
       console.log(value);
       try {
-        const { data, error } = await medicineService.editMedicine({
+        const { data, error } = await editMedicineBySeller({
           id,
           value,
         });
@@ -192,7 +192,7 @@ const EditMedicineCard = ({
                     <select
                       id={field.name}
                       name={field.name}
-                      value={field.state.value}
+                      defaultValue={medicine.data.categoryId}
                       onChange={(e) => field.handleChange(e.target.value)}
                       className="border border-gray-300 rounded-md p-2 "
                     >

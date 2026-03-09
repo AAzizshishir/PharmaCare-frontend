@@ -14,7 +14,7 @@ import { toast } from "sonner";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { CartItem } from "@/types";
-import { orderService } from "@/services/order.service";
+import { CreateOrder } from "@/app/actions/order.actions";
 
 // ✅ Zod schema
 const formSchema = z.object({
@@ -47,7 +47,7 @@ const PlaceOrderCard = ({
           items: payload,
         };
 
-        const res = await orderService.postOrder(body);
+        const res = await CreateOrder(body);
 
         if (res.error) {
           toast.error(res.error.message, { id: toastId });

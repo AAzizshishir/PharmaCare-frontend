@@ -7,7 +7,7 @@ import { useForm } from "@tanstack/react-form";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
-import { categoryService } from "@/services/category.service";
+import { addCategoryByAdmin } from "@/app/actions/category.actions";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -26,7 +26,7 @@ const AddCategoryCard = () => {
     onSubmit: async ({ value }) => {
       const toastId = toast.loading("Adding Category");
       try {
-        const { data } = await categoryService.addCategory(value);
+        const { data } = await addCategoryByAdmin(value);
         const error = data.error;
         if (error) {
           toast.error(error.message, { id: toastId });
