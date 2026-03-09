@@ -54,6 +54,7 @@ const PlaceOrderCard = ({
         } else {
           toast.success("Order placed successfully!", { id: toastId });
         }
+        form.reset();
       } catch (error) {
         toast.error("Something went wrong, please try again.", { id: toastId });
       }

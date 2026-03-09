@@ -10,6 +10,10 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+
+  images: {
+    domains: ["i.ibb.co"], // allow imgbb images
+  },
 };
 
 export default nextConfig;

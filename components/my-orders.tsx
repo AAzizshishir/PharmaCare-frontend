@@ -31,7 +31,7 @@ const MyOrdersCard = ({ orderItem }: { orderItem: OrderCardProps }) => {
     const toastId = toast.loading("Cancelling Order");
     try {
       const res = await cancelOrder(id, status);
-      console.log(res);
+
       if (res.error) {
         toast.error(res.error.message, { id: toastId });
         return;
@@ -62,9 +62,9 @@ const MyOrdersCard = ({ orderItem }: { orderItem: OrderCardProps }) => {
             <TableRow key={item.id}>
               <TableCell>{item.medicines.name}</TableCell>
               <TableCell>{item.quantity}</TableCell>
-              <TableCell>{item.priceAtPurchase}</TableCell>
+              <TableCell>৳{item.priceAtPurchase}</TableCell>
               <TableCell>
-                ${Number(item.priceAtPurchase) * item.quantity}
+                ৳{Number(item.priceAtPurchase) * item.quantity}
               </TableCell>
             </TableRow>
           ))}

@@ -61,7 +61,7 @@ export const deleteCartItem = async (id: string) => {
         "Content-Type": "application/json",
         cookie: cookieStore.toString(),
       },
-      next: { revalidate: 10 },
+      next: { revalidate: 60 },
     });
 
     const data = await res.json();

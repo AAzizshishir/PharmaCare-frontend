@@ -9,7 +9,11 @@ const Cart = async () => {
   const cartItems = result?.data;
 
   if (!cartItems || !cartItems.items) {
-    return <div>No items found or failed to load.</div>;
+    return (
+      <div className="text-center text-gray-600 mt-6">
+        Your cart is empty. Add some medicines to continue.
+      </div>
+    );
   }
   return (
     <div className="container mx-auto">

@@ -4,6 +4,8 @@ export interface MedicineData {
   id: string;
   name: string;
   description: string;
+  imageUrl: string;
+  brandName: string;
   price: string;
   stock: number;
   sellerId: string;
