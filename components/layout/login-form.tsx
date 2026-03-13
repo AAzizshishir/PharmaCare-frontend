@@ -23,6 +23,8 @@ import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
 import { authClient, useSession } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 
 const formSchema = z.object({
   password: z.string(),
@@ -33,6 +35,7 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const form = useForm({
     defaultValues: {
@@ -110,14 +113,29 @@ export function LoginForm({
                     field.state.meta.isTouched && !field.state.meta.isValid;
                   return (
                     <Field>
-                      <Input
-                        type="password"
-                        id={field.name}
-                        name={field.name}
-                        value={field.state.value}
-                        placeholder="Enter Password"
-                        onChange={(e) => field.handleChange(e.target.value)}
-                      />
+                      <div className="relative">
+                        <Input
+                          type={showPassword ? "text" : "password"}
+                          id={field.name}
+                          name={field.name}
+                          value={field.state.value}
+                          placeholder="Enter Password"
+                          onChange={(e) => field.handleChange(e.target.value)}
+                        />
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          className="absolute right-2"
+                          onClick={() => setShowPassword((prev) => !prev)}
+                        >
+                          {showPassword ? (
+                            <EyeOff size={18} />
+                          ) : (
+                            <Eye size={18} />
+                          )}
+                        </Button>
+                      </div>
+
                       {isInvalid && (
                         <FieldError errors={field.state.meta.errors} />
                       )}

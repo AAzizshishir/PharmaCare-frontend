@@ -9,10 +9,8 @@ const AboutUsCard = () => {
           <Image
             src={`https://i.ibb.co.com/kgP0wB02/arpad-czapp-tv-P6p-Cnq9i-I-unsplash.jpg`} // place your image in /public/images
             alt="About PharmaCare"
-            // fill
-            width={400}
-            height={300}
             className="w-full h-auto rounded-lg object-cover"
+            fill
           />
         </div>
 

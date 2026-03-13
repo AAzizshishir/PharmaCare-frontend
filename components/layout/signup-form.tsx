@@ -18,8 +18,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import { useForm } from "@tanstack/react-form";
+import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { toast } from "sonner";
 import * as z from "zod";
 
@@ -31,6 +33,7 @@ const formSchema = z.object({
 });
 
 export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const form = useForm({
     defaultValues: {
@@ -123,6 +126,7 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
                 );
               }}
             />
+            {/* password */}
             <form.Field
               name="password"
               children={(field) => {
@@ -130,14 +134,29 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
                   field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field>
-                    <Input
-                      type="password"
-                      id={field.name}
-                      name={field.name}
-                      value={field.state.value}
-                      placeholder="Enter Password"
-                      onChange={(e) => field.handleChange(e.target.value)}
-                    />
+                    <div className="relative">
+                      <Input
+                        type={showPassword ? "text" : "password"}
+                        id={field.name}
+                        name={field.name}
+                        value={field.state.value}
+                        placeholder="Enter Password"
+                        onChange={(e) => field.handleChange(e.target.value)}
+                      />
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        className="absolute right-2"
+                        onClick={() => setShowPassword((prev) => !prev)}
+                      >
+                        {showPassword ? (
+                          <EyeOff size={18} />
+                        ) : (
+                          <Eye size={18} />
+                        )}
+                      </Button>
+                    </div>
+
                     {isInvalid && (
                       <FieldError errors={field.state.meta.errors} />
                     )}
