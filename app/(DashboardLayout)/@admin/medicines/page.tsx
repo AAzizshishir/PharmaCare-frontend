@@ -3,11 +3,13 @@ import MedicineCard from "@/components/medicineCard";
 import { MedicineData } from "@/types";
 
 const AdminMedicinePage = async () => {
-  const medicines = await getMedicine();
+  const result = await getMedicine();
+  const medicines = result.data.data;
+
   return (
     <div>
       <div className="grid grid-cols-3 gap-4 container mx-auto">
-        {medicines.data.map((data: MedicineData) => (
+        {medicines.map((data: MedicineData) => (
           <MedicineCard key={data.id} medicine={data} />
         ))}
       </div>

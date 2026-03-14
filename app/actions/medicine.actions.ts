@@ -6,9 +6,24 @@ import { cookies } from "next/headers";
 const API_URL = process.env.API_URL;
 const PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export const getMedicine = async () => {
+interface getMedicineParams {
+  brandName?: string;
+  categoryName?: string;
+  searchTerm?: string;
+}
+
+export const getMedicine = async (params?: getMedicineParams) => {
   try {
-    const res = await fetch(`${API_URL}/api/medicines`, {
+    const url = new URL(`${API_URL}/api/medicines`);
+
+    if (params) {
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== "") {
+          url.searchParams.append(key, value);
+        }
+      });
+    }
+    const res = await fetch(url.toString(), {
       next: { revalidate: 60 },
     });
     const data = await res.json();

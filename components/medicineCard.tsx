@@ -4,7 +4,6 @@ import { Button } from "./ui/button";
 import Image from "next/image";
 
 const MedicineCard = ({ medicine }: { medicine: MedicineData }) => {
-  console.log(medicine);
   return (
     <div className="flex items-center border rounded-[2px] px-4 py-2 shadow-md">
       {/* Left side: Image */}

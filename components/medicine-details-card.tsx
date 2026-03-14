@@ -98,6 +98,11 @@ const MedicineDetailsCard = ({
               </Button>
             </div>
           )}
+          {!session && (
+            <p className="text-lg text-red-600 font-medium">
+              Please login for order
+            </p>
+          )}
         </div>
       </div>
 
