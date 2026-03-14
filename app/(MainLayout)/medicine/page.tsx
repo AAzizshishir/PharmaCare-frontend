@@ -3,6 +3,7 @@ import MedicineCard from "@/components/medicineCard";
 import { MedicineData } from "@/types";
 import MedicineFilters from "./medicineFilters";
 import { getCategories } from "@/app/actions/category.actions";
+import Pagination from "./pagination";
 
 const MedicinePage = async ({
   searchParams,
@@ -10,15 +11,13 @@ const MedicinePage = async ({
   searchParams: Promise<{ [key: string]: string | undefined }>;
 }) => {
   const params = await searchParams;
-  console.log("Search Term:", params.searchTerm);
-  console.log("Brand:", params.brandName);
-  console.log("Category:", params.category);
 
   const result = await getMedicine(params);
   const medicines = result.data.data;
-
   const categories = await getCategories();
   const categoriesData = categories?.data;
+  const currentPage = result.data.meta.page;
+  const totalPages = result.data.meta.totalPages;
 
   return (
     <div>
@@ -29,6 +28,8 @@ const MedicinePage = async ({
           <MedicineCard key={data.id} medicine={data} />
         ))}
       </div>
+
+      <Pagination currentPage={currentPage} totalPages={totalPages} />
     </div>
   );
 };

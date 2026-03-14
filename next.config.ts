@@ -12,7 +12,13 @@ const nextConfig: NextConfig = {
   },
 
   images: {
-    domains: ["i.ibb.co", "i.ibb.co.com"], // allow imgbb images
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "i.ibb.co.com",
+        pathname: "/**",
+      },
+    ],
   },
 };
 
