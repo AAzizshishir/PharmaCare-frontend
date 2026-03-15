@@ -11,7 +11,7 @@ const TopBrands = () => {
 
   return (
     <section className="max-w-7xl mx-6 mb-4">
-      <h1 className="text-2xl font-bold text-blue-600 text-left mb-3 uppercase">
+      <h1 className="text-xl font-bold text-blue-600 text-left mb-3 uppercase">
         Top Brands
       </h1>
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">

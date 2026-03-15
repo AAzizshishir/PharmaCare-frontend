@@ -41,6 +41,24 @@ export const getMedicine = async (params?: getMedicineParams) => {
   }
 };
 
+export const getTopRatedMedicine = async () => {
+  try {
+    const res = await fetch(`${API_URL}/api/medicines/top-rated`);
+    const data = await res.json();
+
+    if (data.success) {
+      return data;
+    } else {
+      return {
+        error: { message: data.message || "Failed to get top rated medicine" },
+      };
+    }
+  } catch (error) {
+    console.error(error);
+    return { data: null, error: { message: "Something Went Wrong" } };
+  }
+};
+
 export const getMedicineById = async (id: string) => {
   try {
     const res = await fetch(`${API_URL}/api/medicine/${id}`);
@@ -50,7 +68,7 @@ export const getMedicineById = async (id: string) => {
       return data;
     } else {
       return {
-        error: { message: data.message || "Failed to delete medicine" },
+        error: { message: data.message || "Failed to get medicine" },
       };
     }
   } catch (error) {

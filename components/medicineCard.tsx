@@ -1,11 +1,10 @@
 import Link from "next/link";
 import { MedicineData } from "./../types/medicine.type";
-import { Button } from "./ui/button";
 import Image from "next/image";
 
 const MedicineCard = ({ medicine }: { medicine: MedicineData }) => {
   return (
-    <div className="flex items-center border rounded-[2px] py-2 shadow-md">
+    <div className="flex items-center border rounded-[2px] p-2 shadow-md">
       {/* Left side: Image */}
       <div className="w-50 h-20 relative">
         <Image
