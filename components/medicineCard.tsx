@@ -5,15 +5,14 @@ import Image from "next/image";
 
 const MedicineCard = ({ medicine }: { medicine: MedicineData }) => {
   return (
-    <div className="flex items-center border rounded-[2px] px-4 py-2 shadow-md">
+    <div className="flex items-center border rounded-[2px] py-2 shadow-md">
       {/* Left side: Image */}
-      <div className="w-1/3">
+      <div className="w-50 h-20 relative">
         <Image
           src={medicine?.imageUrl}
           alt={medicine.name}
-          className="w-full h-auto rounded"
-          width={100}
-          height={100}
+          className="w-full h-auto rounded object-contain"
+          fill
         />
       </div>
 

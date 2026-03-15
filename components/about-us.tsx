@@ -1,4 +1,5 @@
 import Image from "next/image";
+import aboutImage from "@/public/about.svg";
 
 const AboutUsCard = () => {
   return (
@@ -7,10 +8,10 @@ const AboutUsCard = () => {
         {/* Left side: Image */}
         <div className="w-1/3 relative">
           <Image
-            src={`https://i.ibb.co.com/kgP0wB02/arpad-czapp-tv-P6p-Cnq9i-I-unsplash.jpg`} // place your image in /public/images
+            src={aboutImage}
             alt="About PharmaCare"
             className="w-full h-auto rounded-lg object-cover"
-            fill
+            // fill
           />
         </div>
 

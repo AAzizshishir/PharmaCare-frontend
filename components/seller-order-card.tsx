@@ -13,6 +13,8 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { OrderTypes } from "@/types";
 import { updateOrderStatus } from "@/app/actions/order.actions";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 const SellerOrderCard = ({ orderItem }: { orderItem: OrderTypes }) => {
   const router = useRouter();
@@ -27,19 +29,24 @@ const SellerOrderCard = ({ orderItem }: { orderItem: OrderTypes }) => {
     totalAmount,
   } = orderItem;
 
+  const [loading, setLoading] = useState(false);
+
   const handleUpdateStatus = async (id: string, status: string) => {
     const toastId = toast.loading("Updating status");
     try {
+      setLoading(true);
       const res = await updateOrderStatus(id, status);
-      console.log(res);
+
       if (res.error) {
         toast.error(res.error.message, { id: toastId });
         return;
       }
       toast.success("Status Update Successfully", { id: toastId });
       router.refresh();
+      setLoading(false);
     } catch (error) {
       toast.error("Something went wrong, please try again.", { id: toastId });
+      setLoading(false);
     }
   };
 
@@ -97,18 +104,28 @@ const SellerOrderCard = ({ orderItem }: { orderItem: OrderTypes }) => {
         {status === "PENDING" && (
           <Button
             onClick={() => handleUpdateStatus(id, "CONFIRMED")}
+            disabled={loading}
             className="bg-green-500 hover:bg-green-600 cursor-pointer"
           >
-            Approve Order
+            {loading ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              "Approve Order"
+            )}
           </Button>
         )}
 
         {status === "CONFIRMED" && (
           <Button
             onClick={() => handleUpdateStatus(id, "SHIPPED")}
+            disabled={loading}
             className="bg-blue-500 hover:bg-blue-600 cursor-pointer"
           >
-            Mark as Shipped
+            {loading ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              "Mark as Shipped"
+            )}
           </Button>
         )}
 
@@ -117,7 +134,11 @@ const SellerOrderCard = ({ orderItem }: { orderItem: OrderTypes }) => {
             onClick={() => handleUpdateStatus(id, "DELIVERED")}
             className="bg-cyan-700 hover:bg-cyan-900 cursor-pointer"
           >
-            SHIPPED
+            {loading ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              "Delivered"
+            )}
           </Button>
         )}
 

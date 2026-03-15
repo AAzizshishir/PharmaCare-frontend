@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 const Banner = () => {
   return (
     <div
-      className="h-screen w-full bg-cover bg-center flex items-center justify-center text-center relative"
+      className="h-screen w-full bg-cover bg-center flex items-center justify-center text-center relative mb-4"
       style={{ backgroundImage: `url(${bannerImage.src})` }}
     >
       {/* Overlay */}

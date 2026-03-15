@@ -87,7 +87,8 @@ export const updateOrderStatus = async (id: string, status: string) => {
         cookie: cookieStore.toString(),
       },
       body: JSON.stringify({ status }),
-      next: { revalidate: 10 },
+      next: { revalidate: 60 },
+      cache: "no-store",
     });
 
     const data = await res.json();

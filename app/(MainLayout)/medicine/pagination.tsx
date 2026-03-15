@@ -20,7 +20,7 @@ const Pagination = ({
   };
 
   return (
-    <div className="flex gap-2 justify-center my-4">
+    <div className="sticky bottom-0 w-full flex flex-wrap gap-2 justify-center bg-white py-2 shadow">
       <Button
         className="bg-blue-500 hover:bg-blue-600 cursor-pointer"
         disabled={currentPage === 1}

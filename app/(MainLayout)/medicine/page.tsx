@@ -19,11 +19,13 @@ const MedicinePage = async ({
   const currentPage = result.data.meta.page;
   const totalPages = result.data.meta.totalPages;
 
+  console.log(result);
+
   return (
     <div>
       <MedicineFilters medicines={medicines} categoriesData={categoriesData} />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 container mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl mx-6">
         {medicines.map((data: MedicineData) => (
           <MedicineCard key={data.id} medicine={data} />
         ))}

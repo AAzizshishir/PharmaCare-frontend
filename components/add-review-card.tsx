@@ -49,6 +49,7 @@ const AddReviewCard = () => {
           return;
         }
         toast.success("Review Added Successfully", { id: toastId });
+        form.reset();
       } catch (error) {
         toast.error("Something went wrong, please try again.", { id: toastId });
       }

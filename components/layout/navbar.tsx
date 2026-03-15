@@ -95,7 +95,7 @@ const Navbar = ({
 
   return (
     <section className={`${cn("py-4", className)}`}>
-      <div className="container mx-auto">
+      <div className="max-w-7xl mx-6">
         {/* Desktop Menu */}
         <nav className="hidden items-center justify-between lg:flex">
           <div className="flex items-center gap-6">
