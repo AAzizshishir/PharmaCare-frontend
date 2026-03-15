@@ -34,6 +34,29 @@ export const CreateOrder = async (orderData: OrderType) => {
   }
 };
 
+// get orders for seller
+
+export const getOrdersForSeller = async () => {
+  try {
+    const cookieStore = await cookies();
+    const ordersRes = await fetch(`${PUBLIC_API_URL}/api/orders/seller`, {
+      next: { revalidate: 60 },
+      headers: {
+        cookie: cookieStore.toString(),
+      },
+    });
+    const data = await ordersRes.json();
+    if (data.success) {
+      return data;
+    }
+    return {
+      error: { message: data.message || "Failed to fetch seller orders" },
+    };
+  } catch (error) {
+    return { data: null, error: { message: "Something Went Wrong" } };
+  }
+};
+
 export const getOrdersForUser = async () => {
   try {
     const cookieStore = await cookies();

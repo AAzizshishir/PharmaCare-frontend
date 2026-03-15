@@ -1,8 +1,6 @@
 import { getSellerReviews } from "@/app/actions/review.actions";
 import ReviewCard from "@/components/review-card";
 import { ReviewCardProps } from "@/types";
-import { cookies } from "next/headers";
-const PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const SellerMedicineReviewPage = async () => {
   const result = await getSellerReviews();
