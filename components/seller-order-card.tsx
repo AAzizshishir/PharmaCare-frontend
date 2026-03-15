@@ -25,26 +25,29 @@ const SellerOrderCard = ({ orderItem }: { orderItem: OrderTypes }) => {
     createdAt,
     shippingAddress,
     paymentMethod,
-    status,
+    status: initialStatus,
     totalAmount,
   } = orderItem;
 
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState(initialStatus);
 
-  const handleUpdateStatus = async (id: string, status: string) => {
+  const handleUpdateStatus = async (id: string, newStatus: string) => {
     const toastId = toast.loading("Updating status");
+    setLoading(true);
     try {
-      setLoading(true);
-      const res = await updateOrderStatus(id, status);
+      const res = await updateOrderStatus(id, newStatus);
 
       if (res.error) {
         toast.error(res.error.message, { id: toastId });
+        setLoading(false);
         return;
       }
+      setStatus(newStatus);
       toast.success("Status Update Successfully", { id: toastId });
-      router.refresh();
     } catch (error) {
       toast.error("Something went wrong, please try again.", { id: toastId });
+    } finally {
       setLoading(false);
     }
   };
