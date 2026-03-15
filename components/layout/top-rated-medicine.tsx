@@ -14,7 +14,6 @@ const TopRatedMedicine = ({
 }: {
   topRatedMedicines: TopRatedMedicineProps[];
 }) => {
-  console.log(topRatedMedicines);
   return (
     <section className="max-w-7xl mx-6 mb-4">
       <h1 className="text-xl font-bold text-blue-600 text-left mb-3 uppercase">

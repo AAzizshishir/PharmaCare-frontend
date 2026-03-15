@@ -19,8 +19,6 @@ const MedicinePage = async ({
   const currentPage = result.data.meta.page;
   const totalPages = result.data.meta.totalPages;
 
-  console.log(result);
-
   return (
     <div>
       <MedicineFilters medicines={medicines} categoriesData={categoriesData} />

@@ -14,7 +14,6 @@ const MedicinePage = async ({
   const medicine = await getMedicineById(id);
   const medicineDetails = medicine.data;
 
-  console.log(id);
   const medicineReviews = await getMedicineReviews(id);
   const medicineReviewsData = medicineReviews?.data;
 

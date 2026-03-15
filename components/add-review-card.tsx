@@ -25,7 +25,6 @@ const AddReviewCard = () => {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("orderId");
   const medicineId = searchParams.get("medicineId");
-  console.log(orderId, medicineId);
   const form = useForm({
     defaultValues: {
       rating: 0,

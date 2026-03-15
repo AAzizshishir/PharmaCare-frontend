@@ -5,8 +5,6 @@ import { MedicineData } from "@/types";
 const MyMedicines = async () => {
   const sellerMedicine = await getMedicineBySeller();
 
-  console.log(sellerMedicine);
-
   if (!sellerMedicine.data) {
     return <div>No medicines found or failed to load.</div>;
   }

@@ -29,8 +29,6 @@ export const getSession = async () => {
   try {
     const cookieStore = await cookies();
 
-    console.log(cookieStore.toString());
-
     const res = await fetch(`${API_URL}/api/auth/get-session`, {
       headers: { Cookie: cookieStore.toString() },
       cache: "no-store",

@@ -14,7 +14,6 @@ const CartCard = ({ item }: { item: CartItem }) => {
     const toastId = toast.loading("Deleting CartItem");
     try {
       const res = await deleteCartItem(id);
-      console.log(res);
       if (res.error) {
         toast.error(res.error.message, { id: toastId });
         return;

@@ -21,7 +21,7 @@ import Link from "next/link";
 import * as z from "zod";
 import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
-import { authClient, useSession } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
@@ -48,10 +48,10 @@ export function LoginForm({
     onSubmit: async ({ value }) => {
       const toastId = toast.loading("Logging in");
       try {
-        const { data, error } = await authClient.signIn.email(value);
-        console.log(data);
-        if (error) {
-          toast.error(error.message, { id: toastId });
+        const data = await authClient.signIn.email(value);
+
+        if (data.error) {
+          toast.error(data.error.message, { id: toastId });
           return;
         } else {
           router.push("/");
@@ -63,9 +63,7 @@ export function LoginForm({
       }
     },
   });
-  console.log(useSession());
-  const { data } = useSession();
-  console.log(data);
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>

@@ -14,10 +14,10 @@ const SellerMedicineCard = ({ medicine }: { medicine: MedicineData }) => {
   const handleDelete = async (id: string) => {
     const toastId = toast.loading("Deleting Medicine");
     try {
-      const { data, error } = await deleteMedicineBySeller(id);
-      console.log(data);
-      if (error) {
-        toast.error(error.message, { id: toastId });
+      const data = await deleteMedicineBySeller(id);
+
+      if (data.error) {
+        toast.error(data.error.message, { id: toastId });
         return;
       }
 

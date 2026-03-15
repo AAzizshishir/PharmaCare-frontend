@@ -48,10 +48,10 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
     onSubmit: async ({ value }) => {
       const toastId = toast.loading("Creating user");
       try {
-        const { data, error } = await authClient.signUp.email(value);
-        console.log(data);
-        if (error) {
-          toast.error(error.message, { id: toastId });
+        const data = await authClient.signUp.email(value);
+
+        if (data.error) {
+          toast.error(data.error.message, { id: toastId });
           return;
         } else {
           router.push("/");

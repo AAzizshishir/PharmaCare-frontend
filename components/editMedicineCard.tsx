@@ -47,14 +47,11 @@ const EditMedicineCard = ({
     },
     onSubmit: async ({ value }) => {
       const toastId = toast.loading("Editing Medicine");
-
-      console.log(value);
       try {
         const { data, error } = await editMedicineBySeller({
           id,
           value,
         });
-        console.log(data);
         if (error) {
           toast.error(error.message, { id: toastId });
           return;

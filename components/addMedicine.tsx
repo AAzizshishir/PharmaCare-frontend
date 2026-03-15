@@ -82,8 +82,6 @@ const AddMedicine = ({
     },
     onSubmit: async ({ value }) => {
       const toastId = toast.loading("Adding Medicine");
-
-      console.log(value);
       try {
         const { data } = await postMedicineBySeller({ value });
         if (data.error) {

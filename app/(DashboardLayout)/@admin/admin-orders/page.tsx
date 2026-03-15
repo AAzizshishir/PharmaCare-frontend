@@ -5,7 +5,6 @@ import { OrderTypes } from "@/types";
 const OrderPage = async () => {
   const orders = await getOrdersForAdmin();
   const ordersData = orders.data;
-  console.log(orders.data);
   return (
     <div className="container mx-auto">
       {ordersData && ordersData.length > 0 ? (

@@ -4,7 +4,6 @@ import { ReviewCardProps } from "@/types";
 
 const MyReviews = async () => {
   const data = await getCustomerReviews();
-  console.log(data.data);
   const reviews = data?.data;
 
   return (

@@ -5,7 +5,6 @@ import { CategoryTypes } from "@/types";
 const ManageCategoryPage = async () => {
   const categories = await getCategories();
   const category = categories.data;
-  console.log(categories);
   return (
     <div>
       <AddCategoryCard />

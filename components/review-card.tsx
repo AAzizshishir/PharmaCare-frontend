@@ -27,10 +27,10 @@ const ReviewCard = ({ review }: { review: ReviewCardProps }) => {
   const handleDeleteReview = async (id: string) => {
     const toastId = toast.loading("Deleting Review");
     try {
-      const { data, error } = await deleteReview(id);
-      console.log(data);
-      if (error) {
-        toast.error(error.message, { id: toastId });
+      const data = await deleteReview(id);
+
+      if (data.error) {
+        toast.error(data.error.message, { id: toastId });
         return;
       }
 
