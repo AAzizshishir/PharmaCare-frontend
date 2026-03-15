@@ -35,7 +35,6 @@ export const CreateOrder = async (orderData: OrderType) => {
 };
 
 // get orders for seller
-
 export const getOrdersForSeller = async () => {
   try {
     const cookieStore = await cookies();
@@ -110,7 +109,6 @@ export const updateOrderStatus = async (id: string, status: string) => {
         cookie: cookieStore.toString(),
       },
       body: JSON.stringify({ status }),
-      next: { revalidate: 60 },
       cache: "no-store",
     });
 

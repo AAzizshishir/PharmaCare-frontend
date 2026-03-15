@@ -43,13 +43,11 @@ const SellerOrderCard = ({ orderItem }: { orderItem: OrderTypes }) => {
       }
       toast.success("Status Update Successfully", { id: toastId });
       router.refresh();
-      setLoading(false);
     } catch (error) {
       toast.error("Something went wrong, please try again.", { id: toastId });
       setLoading(false);
     }
   };
-
   return (
     <div className="border rounded-md shadow-md p-4">
       <h2 className="font-semibold mb-2">Order #{id}</h2>
