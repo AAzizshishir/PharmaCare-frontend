@@ -10,7 +10,7 @@ const MyMedicines = async () => {
   }
 
   return (
-    <div className="grid grid-cols-3 gap-4 container mx-auto">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl mx-6">
       {sellerMedicine.data.map((data: MedicineData) => (
         <SellerMedicineCard key={data.id} medicine={data} />
       ))}
