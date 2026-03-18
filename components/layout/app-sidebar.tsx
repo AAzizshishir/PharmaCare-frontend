@@ -17,6 +17,7 @@ import { AppSession, Route } from "@/types";
 import { adminRoutes } from "@/routes/admin-routes";
 import { sellerRoutes } from "@/routes/seller-routes";
 import { useSession } from "@/lib/auth-client";
+import { customerRoutes } from "@/routes/customer-routes";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { data } = useSession();
@@ -31,6 +32,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
     case "seller":
       routes = sellerRoutes;
+      break;
+
+    case "customer":
+      routes = customerRoutes;
       break;
 
     default:

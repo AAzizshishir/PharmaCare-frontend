@@ -42,6 +42,7 @@ export async function proxy(request: NextRequest) {
   if (role === Roles.admin) {
     if (
       pathname.startsWith("/seller-dashboard") ||
+      pathname.startsWith("/customer-dashboard") ||
       pathname.startsWith("/add-medicine") ||
       pathname.startsWith("/my-medicine") ||
       pathname.startsWith("/seller-orders") ||
@@ -57,6 +58,7 @@ export async function proxy(request: NextRequest) {
   if (role === Roles.seller) {
     if (
       pathname.startsWith("/admin-dashboard") ||
+      pathname.startsWith("/customer-dashboard") ||
       pathname.startsWith("/categories") ||
       pathname.startsWith("/users") ||
       pathname.startsWith("/admin-orders") ||
@@ -93,6 +95,8 @@ export const config = {
     "/seller-dashboard/:path*",
     "/admin-dashboard",
     "/admin-dashboard/:path*",
+    "/customer-dashboard",
+    "/customer-dashboard/:path*",
     "/add-medicine",
     "/my-medicine",
     "/seller-orders",

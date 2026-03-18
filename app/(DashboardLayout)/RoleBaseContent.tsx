@@ -6,9 +6,11 @@ import { AppSession } from "@/types";
 export default function RoleBasedContent({
   admin,
   seller,
+  customer,
 }: {
   admin: React.ReactNode;
   seller: React.ReactNode;
+  customer: React.ReactNode;
 }) {
   const { data } = useSession();
   const session = data as AppSession | null;
@@ -16,4 +18,5 @@ export default function RoleBasedContent({
 
   if (role === "admin") return <>{admin}</>;
   if (role === "seller") return <>{seller}</>;
+  if (role === "customer") return <>{customer}</>;
 }
