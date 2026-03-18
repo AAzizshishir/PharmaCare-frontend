@@ -1,9 +1,9 @@
 import { getMedicine } from "@/app/actions/medicine.actions";
-import MedicineCard from "@/components/medicineCard";
 import { MedicineData } from "@/types";
 import MedicineFilters from "./medicineFilters";
 import { getCategories } from "@/app/actions/category.actions";
 import Pagination from "./pagination";
+import MedicineCard from "@/components/layout-card/medicineCard";
 
 const MedicinePage = async ({
   searchParams,

@@ -1,5 +1,5 @@
 import { getCategories } from "@/app/actions/category.actions";
-import AddCategoryCard from "@/components/addCategoryCard";
+import AddCategoryCard from "@/components/layout-card/addCategoryCard";
 import { CategoryTypes } from "@/types";
 
 const ManageCategoryPage = async () => {

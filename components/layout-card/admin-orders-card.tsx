@@ -5,7 +5,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./ui/table";
+} from "../ui/table";
 import { OrderTypes } from "@/types";
 
 const AdminOrdersCard = ({ orderItem }: { orderItem: OrderTypes }) => {

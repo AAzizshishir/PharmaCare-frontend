@@ -1,5 +1,5 @@
 import { getCartItems } from "@/app/actions/cart.actions";
-import PlaceOrderCard from "@/components/place-order-card";
+import PlaceOrderCard from "@/components/layout-card/place-order-card";
 
 const PlaceOrder = async () => {
   const data = await getCartItems();

@@ -1,7 +1,7 @@
 import { getMedicineById } from "@/app/actions/medicine.actions";
 import { getMedicineReviews } from "@/app/actions/review.actions";
-import MedicineDetailsCard from "@/components/medicine-details-card";
-import ReviewCard from "@/components/review-card";
+import MedicineDetailsCard from "@/components/layout-card/medicine-details-card";
+import ReviewCard from "@/components/layout-card/review-card";
 import { ReviewCardProps } from "@/types";
 
 const MedicinePage = async ({

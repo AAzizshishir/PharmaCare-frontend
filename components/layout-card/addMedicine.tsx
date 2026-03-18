@@ -7,14 +7,14 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "./ui/card";
-import { Field, FieldError, FieldGroup } from "./ui/field";
+} from "../ui/card";
+import { Field, FieldError, FieldGroup } from "../ui/field";
 import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { CategoryTypes } from "./../types/category.type";
+import { CategoryTypes } from "../../types/category.type";
 import { postMedicineBySeller } from "@/app/actions/medicine.actions";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 
 const formSchema = z.object({
   name: z.string().min(3, "Name is required"),

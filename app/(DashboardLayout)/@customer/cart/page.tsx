@@ -1,5 +1,5 @@
 import { getCartItems } from "@/app/actions/cart.actions";
-import CartCard from "@/components/cart-card";
+import CartCard from "@/components/layout-card/cart-card";
 import { Button } from "@/components/ui/button";
 import { CartItem } from "@/types";
 import Link from "next/link";

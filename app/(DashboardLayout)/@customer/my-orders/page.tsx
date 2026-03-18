@@ -1,5 +1,5 @@
 import { getOrdersForUser } from "@/app/actions/order.actions";
-import MyOrdersCard from "@/components/my-orders";
+import MyOrdersCard from "@/components/layout-card/my-orders";
 import { OrderCardProps } from "@/types";
 
 const MyOrderPage = async () => {

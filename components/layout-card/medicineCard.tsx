@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MedicineData } from "./../types/medicine.type";
+import { MedicineData } from "../../types/medicine.type";
 import Image from "next/image";
 
 const MedicineCard = ({ medicine }: { medicine: MedicineData }) => {

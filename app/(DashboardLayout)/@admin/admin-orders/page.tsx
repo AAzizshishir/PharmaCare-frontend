@@ -1,5 +1,5 @@
 import { getOrdersForAdmin } from "@/app/actions/order.actions";
-import AdminOrdersCard from "@/components/admin-orders-card";
+import AdminOrdersCard from "@/components/layout-card/admin-orders-card";
 import { OrderTypes } from "@/types";
 
 const OrderPage = async () => {

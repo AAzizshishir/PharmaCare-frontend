@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { MedicineData } from "@/types";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";

@@ -1,7 +1,7 @@
 "use client";
 
 import { OrderCardProps } from "@/types";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import {
   Table,
   TableBody,
@@ -9,7 +9,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./ui/table";
+} from "../ui/table";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import Link from "next/link";

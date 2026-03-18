@@ -7,12 +7,12 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "./ui/card";
-import { Field, FieldError, FieldGroup } from "./ui/field";
+} from "../ui/card";
+import { Field, FieldError, FieldGroup } from "../ui/field";
 import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 import { CartItem } from "@/types";
 import { CreateOrder } from "@/app/actions/order.actions";
 

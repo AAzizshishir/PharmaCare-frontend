@@ -1,5 +1,5 @@
 import { getMedicineBySeller } from "@/app/actions/medicine.actions";
-import SellerMedicineCard from "@/components/seller-medicine-card";
+import SellerMedicineCard from "@/components/layout-card/seller-medicine-card";
 import { MedicineData } from "@/types";
 
 const MyMedicines = async () => {

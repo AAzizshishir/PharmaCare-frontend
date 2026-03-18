@@ -1,6 +1,6 @@
 import { getCategories } from "@/app/actions/category.actions";
 import { getMedicineById } from "@/app/actions/medicine.actions";
-import EditMedicineCard from "@/components/editMedicineCard";
+import EditMedicineCard from "@/components/layout-card/editMedicineCard";
 
 const EditMedicine = async ({
   params,

@@ -1,5 +1,5 @@
 import { getOrdersForSeller } from "@/app/actions/order.actions";
-import SellerOrderCard from "@/components/seller-order-card";
+import SellerOrderCard from "@/components/layout-card/seller-order-card";
 import { OrderTypes } from "@/types";
 
 const SellerOrders = async () => {

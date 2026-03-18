@@ -1,5 +1,5 @@
 import { getSellerReviews } from "@/app/actions/review.actions";
-import ReviewCard from "@/components/review-card";
+import ReviewCard from "@/components/layout-card/review-card";
 import { ReviewCardProps } from "@/types";
 
 const SellerMedicineReviewPage = async () => {

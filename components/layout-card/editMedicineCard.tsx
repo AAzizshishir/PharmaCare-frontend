@@ -7,14 +7,14 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "./ui/card";
-import { Field, FieldError, FieldGroup } from "./ui/field";
-import { Input } from "./ui/input";
+} from "../ui/card";
+import { Field, FieldError, FieldGroup } from "../ui/field";
+import { Input } from "../ui/input";
 import { toast } from "sonner";
 import { useForm } from "@tanstack/react-form";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { CategoryTypes, MedicineInput } from "@/types";
-import { Label } from "./ui/label";
+import { Label } from "../ui/label";
 import { editMedicineBySeller } from "@/app/actions/medicine.actions";
 
 const formSchema = z.object({

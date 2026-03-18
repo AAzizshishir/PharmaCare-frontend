@@ -9,8 +9,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./ui/table";
-import { Button } from "./ui/button";
+} from "../ui/table";
+import { Button } from "../ui/button";
 import { useState } from "react";
 import { updateUserStatus } from "@/app/actions/user.actions";
 

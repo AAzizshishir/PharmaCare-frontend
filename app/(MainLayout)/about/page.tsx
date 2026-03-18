@@ -1,4 +1,4 @@
-import AboutUsCard from "@/components/about-us";
+import AboutUsCard from "@/components/layout-card/about-us";
 
 const AboutPage = () => {
   return (

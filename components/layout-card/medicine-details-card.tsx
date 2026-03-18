@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "./ui/button";
-import { Label } from "./ui/label";
-import { Input } from "./ui/input";
+import { Button } from "../ui/button";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
 import { toast } from "sonner";
 import { addToCart } from "@/app/actions/cart.actions";
 import { useSession } from "@/lib/auth-client";

@@ -1,6 +1,5 @@
 import { getAllUsersForAdmin } from "@/app/actions/user.actions";
-import UserCard from "@/components/userCard";
-
+import UserCard from "@/components/layout-card/userCard";
 const UsersPage = async () => {
   const result = await getAllUsersForAdmin();
   const users = result?.data;

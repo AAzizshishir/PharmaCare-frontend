@@ -1,20 +1,21 @@
 "use client";
 
 import { toast } from "sonner";
-import { Button } from "./ui/button";
+
+import z from "zod";
+import { useForm } from "@tanstack/react-form";
+import { useSearchParams } from "next/navigation";
+import { addReview } from "@/app/actions/review.actions";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "./ui/card";
-import { Field, FieldError, FieldGroup } from "./ui/field";
-import { Input } from "./ui/input";
-import z from "zod";
-import { useForm } from "@tanstack/react-form";
-import { useSearchParams } from "next/navigation";
-import { addReview } from "@/app/actions/review.actions";
+} from "../ui/card";
+import { Field, FieldError, FieldGroup } from "../ui/field";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 
 const formSchema = z.object({
   rating: z.number().min(1, "Rating minimum 1").max(5, "Rating maximum 5"),

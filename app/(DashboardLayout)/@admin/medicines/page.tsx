@@ -1,5 +1,5 @@
 import { getMedicine } from "@/app/actions/medicine.actions";
-import MedicineCard from "@/components/medicineCard";
+import MedicineCard from "@/components/layout-card/medicineCard";
 import { MedicineData } from "@/types";
 
 const AdminMedicinePage = async () => {

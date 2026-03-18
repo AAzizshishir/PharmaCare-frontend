@@ -3,8 +3,8 @@
 import { CartItem } from "@/types";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Button } from "./ui/button";
 import { deleteCartItem } from "@/app/actions/cart.actions";
+import { Button } from "../ui/button";
 
 const CartCard = ({ item }: { item: CartItem }) => {
   const { medicine, quantity, subtotal } = item;

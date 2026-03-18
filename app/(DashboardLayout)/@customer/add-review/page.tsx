@@ -1,4 +1,4 @@
-import AddReviewCard from "@/components/add-review-card";
+import AddReviewCard from "@/components/layout-card/add-review-card";
 import { Suspense } from "react";
 
 const AddReview = () => {

@@ -1,13 +1,15 @@
 "use client";
 
 import z from "zod";
-import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
-import { Field, FieldError, FieldGroup } from "./ui/field";
+
 import { useForm } from "@tanstack/react-form";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+
 import { toast } from "sonner";
 import { addCategoryByAdmin } from "@/app/actions/category.actions";
+import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
+import { Field, FieldError, FieldGroup } from "../ui/field";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
